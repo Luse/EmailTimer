@@ -4,7 +4,7 @@
     <list default="true" id="7d13a63f-690c-413f-9d3e-ca5f24fde7c8" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/emailtimer/Controllers/EncodeGifController.cs" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/emailtimer/Services/EncodeGifService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Webclient/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Webclient/src/App.js" afterDir="false" />
+      <change beforePath="$USER_HOME$/Webclient/src/App.js" beforeDir="false" afterPath="$USER_HOME$/Webclient/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$USER_HOME$" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/emailtimer/appsettings.json" root0="FORCE_HIGHLIGHTING" />
