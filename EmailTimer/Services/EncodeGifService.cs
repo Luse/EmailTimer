@@ -14,7 +14,7 @@ namespace EmailTimer.Services
     {
         public static async Task<byte[]> Create(DateTime targetTime)
         {
-            var width = 120;
+            var width = 150;
             var height = 16;
             using var gif = new Image<Rgba32>(width,height);
             await using var ms = new MemoryStream();

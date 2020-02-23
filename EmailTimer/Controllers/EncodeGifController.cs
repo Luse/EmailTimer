@@ -35,6 +35,7 @@ namespace EmailTimer.Controllers
         {
             if (targetDate == null) return BadRequest();
             var test = await _service.CreateNewTimer(targetDate, cancellationToken );
+            if (test == null) return BadRequest();
             return Ok(test);
         } 
     }
