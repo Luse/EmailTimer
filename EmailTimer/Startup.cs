@@ -2,17 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EmailTimer1.Services;
+using EmailTimer.Models;
+using EmailTimer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace EmailTimer1
+namespace EmailTimer
 {
     public class Startup
     {
@@ -28,6 +30,8 @@ namespace EmailTimer1
         {
             services.AddScoped<EncodeGifService>();
             services.AddScoped<ManageGifService>();
+            services.AddDbContext<EmailTimerContext>(opt =>
+                opt.UseNpgsql( Configuration.GetConnectionString("DefaultConnection") ));
             services.AddControllers();
         }
 

@@ -1,9 +1,7 @@
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmailTimer1.Models
+namespace EmailTimer.Models
 {
-
     public sealed class EmailTimerContext : DbContext
     {
         public EmailTimerContext(DbContextOptions<EmailTimerContext> options) : base(options){

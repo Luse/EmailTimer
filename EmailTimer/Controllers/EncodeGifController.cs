@@ -1,20 +1,41 @@
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
-using EmailTimer1.Services;
+using EmailTimer.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmailTimer1.Controllers
+namespace EmailTimer.Controllers
 {
     [ApiController]
     public class EncodeGifController : ControllerBase
     {
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(String id)
+        private readonly ManageGifService _service;
+
+        public EncodeGifController(ManageGifService service)
         {
-            var image = await EncodeGifService.Create();
-            var name = ManageGifService.GenerateIdentifier();
+            _service = service;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> Get(String id, CancellationToken cancellationToken)
+        {
+            var targetTime = await _service.FindTimer(id, cancellationToken);
+            if (targetTime == null)
+            {
+                return NotFound();
+            }
+
+            var image = await EncodeGifService.Create((DateTime) targetTime);
             return File(image, "image/gif");
         }
+
+        [HttpPost("/new/{targetDate}")]
+        public async Task<ActionResult> Post(string targetDate, CancellationToken cancellationToken)
+        {
+            if (targetDate == null) return BadRequest();
+            var test = await _service.CreateNewTimer(targetDate, cancellationToken );
+            return Ok(test);
+        } 
     }
 }
