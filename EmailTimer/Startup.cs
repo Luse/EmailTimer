@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using emailtimer.Services;
+using EmailTimer1.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace emailtimer
+namespace EmailTimer1
 {
     public class Startup
     {
@@ -27,6 +27,7 @@ namespace emailtimer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<EncodeGifService>();
+            services.AddScoped<ManageGifService>();
             services.AddControllers();
         }
 

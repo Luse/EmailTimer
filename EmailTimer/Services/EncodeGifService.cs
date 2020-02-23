@@ -8,7 +8,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 
-namespace emailtimer.Services
+namespace EmailTimer1.Services
 {
     public class EncodeGifService
     {
