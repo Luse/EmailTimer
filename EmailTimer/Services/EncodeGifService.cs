@@ -15,12 +15,12 @@ namespace EmailTimer.Services
         public static async Task<byte[]> Create(DateTime targetTime)
         {
             var width = 150;
-            var height = 16;
+            var height = 20;
             using var gif = new Image<Rgba32>(width,height);
             await using var ms = new MemoryStream();
             var scopedTime = targetTime;
             FontCollection fonts = new FontCollection();
-            var arial = SystemFonts.CreateFont("Arial", 16);
+            var fontFamily = fonts.Install("Fonts/Montserrat-Regular.ttf");
             TextGraphicsOptions textGraphicsOptions = new TextGraphicsOptions(true);
  
             if (DateTime.Now > targetTime)
@@ -29,7 +29,7 @@ namespace EmailTimer.Services
                 var messageDone = "Target reached";
                 image.Mutate(x => x
                     .BackgroundColor(Color.White)
-                    .DrawText(textGraphicsOptions, messageDone, arial, Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
+                    .DrawText(textGraphicsOptions, messageDone, fontFamily.CreateFont(16), Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
                 gif.Frames.AddFrame(image.Frames[0]);
                 gif.Metadata.GetFormatMetadata(GifFormat.Instance).ColorTableMode = GifColorTableMode.Global;
                 gif.Frames.RemoveFrame(0);
@@ -46,7 +46,7 @@ namespace EmailTimer.Services
                 using Image<Rgba32> image = new Image<Rgba32>(width, height);
                 image.Mutate(x => x
                     .BackgroundColor(Color.White)
-                    .DrawText(textGraphicsOptions, subs, arial, Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
+                    .DrawText(textGraphicsOptions, subs, fontFamily.CreateFont(16), Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
                 var frameMetaData = image.Frames.RootFrame.Metadata.GetFormatMetadata(GifFormat.Instance);
                 frameMetaData.FrameDelay = 100;
                 gif.Frames.AddFrame(image.Frames[0]);
