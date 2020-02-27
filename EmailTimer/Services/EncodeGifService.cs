@@ -14,13 +14,13 @@ namespace EmailTimer.Services
     {
         public static async Task<byte[]> Create(DateTime targetTime)
         {
-            var width = 150;
-            var height = 20;
+            var width = 210;
+            var height = 26;
             using var gif = new Image<Rgba32>(width,height);
             await using var ms = new MemoryStream();
             var scopedTime = targetTime;
             FontCollection fonts = new FontCollection();
-            var fontFamily = fonts.Install("Fonts/Montserrat-Regular.ttf");
+            var fontFamily = fonts.Install("Fonts/Montserrat-Bold.ttf");
             TextGraphicsOptions textGraphicsOptions = new TextGraphicsOptions(true);
  
             if (DateTime.Now > targetTime)
@@ -29,7 +29,7 @@ namespace EmailTimer.Services
                 var messageDone = "Target reached";
                 image.Mutate(x => x
                     .BackgroundColor(Color.White)
-                    .DrawText(textGraphicsOptions, messageDone, fontFamily.CreateFont(16), Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
+                    .DrawText(textGraphicsOptions, messageDone, fontFamily.CreateFont(24), Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
                 gif.Frames.AddFrame(image.Frames[0]);
                 gif.Metadata.GetFormatMetadata(GifFormat.Instance).ColorTableMode = GifColorTableMode.Global;
                 gif.Frames.RemoveFrame(0);
@@ -40,13 +40,17 @@ namespace EmailTimer.Services
             for (int i = 1; i < 61; i++)
             {
                 var currentTime = scopedTime.AddSeconds(-i);
-                var daysDelta = (int)(currentTime - DateTime.Now).TotalDays;
+                var delta = (currentTime - DateTime.Now);
+                var daysDelta = (int) delta.TotalDays;
+                var hoursDelta = delta.Hours;
+                var minutesDelta = delta.Minutes;
+                var secondsDelta = delta.Seconds;
                 var subs =
-                    $"{daysDelta}d {currentTime.Hour.ToString()}h {currentTime.Minute.ToString()}m {currentTime.Second.ToString()}s";
+                    $"{daysDelta}d {hoursDelta}h {minutesDelta}m {secondsDelta}s";
                 using Image<Rgba32> image = new Image<Rgba32>(width, height);
                 image.Mutate(x => x
                     .BackgroundColor(Color.White)
-                    .DrawText(textGraphicsOptions, subs, fontFamily.CreateFont(16), Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
+                    .DrawText(textGraphicsOptions, subs, fontFamily.CreateFont(24), Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
                 var frameMetaData = image.Frames.RootFrame.Metadata.GetFormatMetadata(GifFormat.Instance);
                 frameMetaData.FrameDelay = 100;
                 gif.Frames.AddFrame(image.Frames[0]);
