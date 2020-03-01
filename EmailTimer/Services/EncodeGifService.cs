@@ -28,8 +28,8 @@ namespace EmailTimer.Services
                 using Image<Rgba32> image = new Image<Rgba32>(width, height);
                 var messageDone = "Target reached";
                 image.Mutate(x => x
-                    .BackgroundColor(Color.White)
-                    .DrawText(textGraphicsOptions, messageDone, fontFamily.CreateFont(24), Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
+                    .BackgroundColor(Color.FromHex("A3E8D5"))
+                    .DrawText(textGraphicsOptions, messageDone, fontFamily.CreateFont(24), Color.FromHex("484C57"), new SixLabors.Primitives.PointF(1, 1)));
                 gif.Frames.AddFrame(image.Frames[0]);
                 gif.Metadata.GetFormatMetadata(GifFormat.Instance).ColorTableMode = GifColorTableMode.Global;
                 gif.Frames.RemoveFrame(0);
@@ -49,8 +49,8 @@ namespace EmailTimer.Services
                     $"{daysDelta}d {hoursDelta}h {minutesDelta}m {secondsDelta}s";
                 using Image<Rgba32> image = new Image<Rgba32>(width, height);
                 image.Mutate(x => x
-                    .BackgroundColor(Color.White)
-                    .DrawText(textGraphicsOptions, subs, fontFamily.CreateFont(24), Rgba32.RebeccaPurple, new SixLabors.Primitives.PointF(1, 1)));
+                    .BackgroundColor(Color.FromHex("A3E8D5"))
+                    .DrawText(textGraphicsOptions, subs, fontFamily.CreateFont(24), Color.FromHex("484C57"), new SixLabors.Primitives.PointF(1, 1)));
                 var frameMetaData = image.Frames.RootFrame.Metadata.GetFormatMetadata(GifFormat.Instance);
                 frameMetaData.FrameDelay = 100;
                 gif.Frames.AddFrame(image.Frames[0]);
