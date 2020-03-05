@@ -13,11 +13,25 @@ namespace EmailTimer.Controllers
     [ApiController]
     public class CustomerController
     {
+        private readonly CustomerService _service;
+
+        public CustomerController(CustomerService service)
+        {
+            _service = service;
+        }
+
         [HttpPost("Register")]
         public async Task<ActionResult> Register([FromBody] JObject body, CancellationToken cancellationToken)
         {
-            var a = body.ToObject<object>();
+            var a = body.ToObject<LoginModel>();
+            await _service.RegisterNewUser(a.Username, a.Password, cancellationToken);
             return new OkResult();
+        }
+
+        private class LoginModel
+        {
+            public string Username { get; set; }
+            public string Password { get; set; }
         }
     }
 }

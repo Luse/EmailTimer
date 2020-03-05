@@ -8,5 +8,6 @@ namespace EmailTimer.Models
             Database.Migrate();
         }
         public DbSet<Timer> Timers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
     }
 }

@@ -31,6 +31,7 @@ namespace EmailTimer
         {
             services.AddScoped<EncodeGifService>();
             services.AddScoped<ManageGifService>();
+            services.AddScoped<CustomerService>();
             services.AddDbContext<EmailTimerContext>(opt =>
                 opt.UseNpgsql( Configuration.GetConnectionString("DefaultConnection") ));
             services.AddControllers().AddNewtonsoftJson();
