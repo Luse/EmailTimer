@@ -1,20 +1,27 @@
 import axios from 'axios';
 
-export const userReducer = (state = "Not Signed in", action) => {
+export const userReducer = (state = {
+    authenticated: false,
+    username: null,
+    error: ""
+}, action) => {
     switch (action.type) {
         case 'LOGIN_SUCCESS':
-            return state = action.username;
-        case 'UNSET_USER':
-        case 'UNVERIFIED_USER':
-            return state = "";
+            return state = {
+                ...state,
+                username: action.payload.response,
+                authenticated: true,
+            };
+        case 'LOGOUT_SUCCESS':
+            return state = {
+                ...state,
+                username: "",
+                authenticated: false,
+            };
         default:
             return state
     }
 };
-
-export const logout = () => (
-    { type: 'UNSET_USER' }
-);
 
 export const register = (username, password) => {
     return function (dispatch) {
@@ -23,27 +30,53 @@ export const register = (username, password) => {
             withCredentials: true,
             responseType: 'json',
             data: {
-                Username: username,
+                Email: username,
                 Password: password
             }
         }).then(
             (result) => dispatch(loginSuccess(result, username))
         )
+            .catch(err => err)
+    }
+}
+
+export const isLoggedIn = () => {
+    return function (dispatch) {
+        return axios('/api/c/Customer/IsLoggedIn', {
+            method: "get",
+            withCredentials: true
+        }).then(
+            (result) => dispatch(loginSuccess(result))
+        )
+            .catch(err => err)
     }
 }
 
 export const login = (username, password) => {
     return function (dispatch) {
-        return axios('/api/authentication/login', {
+        return axios('/api/c/Customer/Login', {
             method: "post",
             withCredentials: true,
             data: {
-                Username: username,
+                Email: username,
                 Password: password
             }
         }).then(
             (result) => dispatch(loginSuccess(result, username))
         )
+            .catch(err => err)
+    }
+};
+
+export const logout = () => {
+    return function (dispatch) {
+        return axios('/api/c/Customer/Logout', {
+            method: "post",
+            withCredentials: true
+        }).then(
+            () => dispatch(logoutSuccess())
+        )
+            .catch(err => err)
     }
 };
 
@@ -54,6 +87,10 @@ export const loginSuccess = (response, username) => ({
         response: response.data
     }
 });
+
+export const logoutSuccess = () => ({
+    type: "LOGOUT_SUCCESS",
+})
 
 export const loginFailure = (error) => ({
     type: "LOGIN_FAILURE",

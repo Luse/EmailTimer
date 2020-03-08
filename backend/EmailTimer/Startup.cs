@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EmailTimer.Models;
 using EmailTimer.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -34,6 +35,12 @@ namespace EmailTimer
             services.AddScoped<CustomerService>();
             services.AddDbContext<EmailTimerContext>(opt =>
                 opt.UseNpgsql( Configuration.GetConnectionString("DefaultConnection") ));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.Cookie.Name = "EMAILTIMER";
+                    options.Cookie.HttpOnly = true;
+                });
             services.AddControllers().AddNewtonsoftJson();
         }
 

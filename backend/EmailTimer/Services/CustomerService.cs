@@ -1,20 +1,31 @@
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EmailTimer.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace EmailTimer.Services
 {
     public class CustomerService
     {
         private readonly EmailTimerContext _context;
-
-        public CustomerService(EmailTimerContext context)
+        private IConfiguration AppSettings { get; set; }
+        
+        public CustomerService(EmailTimerContext context, IConfiguration configuration)
         {
             _context = context;
+            AppSettings = configuration;
         }
+
         public async Task<string> RegisterNewUser(string email, string password, CancellationToken cancellationToken)
         {
             var hash = CreateHash(password);
@@ -24,13 +35,10 @@ namespace EmailTimer.Services
             return hash;
         }
         
-        private static string CreateHash(string password)
+        private string CreateHash(string password)
         {
-            byte[] salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-            }
+            var saltString = AppSettings.GetValue<string>("Salt");
+            byte[] salt = Encoding.ASCII.GetBytes(saltString);
             var hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
                 salt: salt,
@@ -38,6 +46,24 @@ namespace EmailTimer.Services
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
             return hashed;
+        }
+        
+        public async Task<ActionResult> Login(string email, string password, CancellationToken cancellationToken)
+        {
+            var user = await _context.Customers.FirstOrDefaultAsync(a => a.Email == email, cancellationToken: cancellationToken);
+            if (user.PasswordHash != CreateHash(password))
+            {
+                return new ForbidResult();
+            }
+            
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.Role, "customer")
+            };
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            return new SignInResult(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
         }
 
     }
