@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EmailTimer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmailTimer.Controllers
@@ -38,5 +39,11 @@ namespace EmailTimer.Controllers
             if (test == null) return BadRequest();
             return Ok(test);
         } 
+        [Authorize]
+        [HttpGet("/api/c/Customer/List")]
+        public async Task<ActionResult> Get(CancellationToken cancellationToken)
+        {
+            return Ok();
+        }
     }
 }
