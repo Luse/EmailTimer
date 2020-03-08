@@ -1,6 +1,7 @@
 import React from 'react';
 import { Login } from './Components/Login/Login';
 import { Register } from './Components/Register/Register';
+import { Timers } from './Components/Timers/Timers';
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn } from './State/States/User';
 
@@ -21,6 +22,7 @@ function App() {
     <div className="App">
       <Login />
       <Register />
+      <Timers />
     </div>
   );
 }
