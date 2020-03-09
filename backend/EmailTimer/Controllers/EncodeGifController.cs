@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using EmailTimer.Services;
@@ -17,7 +18,7 @@ namespace EmailTimer.Controllers
         {
             _service = service;
         }
-
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult> Get(String id, CancellationToken cancellationToken)
         {
@@ -30,12 +31,13 @@ namespace EmailTimer.Controllers
             var image = await EncodeGifService.Create((DateTime) targetTime);
             return File(image, "image/gif");
         }
-
+        [Authorize]
         [HttpPost("/new/{targetDate}")]
         public async Task<ActionResult> Post(string targetDate, CancellationToken cancellationToken)
         {
             if (targetDate == null) return BadRequest();
-            var test = await _service.CreateNewTimer(targetDate, cancellationToken );
+            var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+            var test = await _service.CreateNewTimer(targetDate, userEmail, cancellationToken );
             if (test == null) return BadRequest();
             return Ok(test);
         } 
