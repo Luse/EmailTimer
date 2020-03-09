@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EmailTimer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Timer = EmailTimer.Models.Timer;
 
 namespace EmailTimer.Controllers
 {
@@ -32,7 +33,7 @@ namespace EmailTimer.Controllers
             return File(image, "image/gif");
         }
         [Authorize]
-        [HttpPost("/new/{targetDate}")]
+        [HttpPost("/api/g/New/{targetDate}")]
         public async Task<ActionResult> Post(string targetDate, CancellationToken cancellationToken)
         {
             if (targetDate == null) return BadRequest();
@@ -42,10 +43,12 @@ namespace EmailTimer.Controllers
             return Ok(timer);
         } 
         [Authorize]
-        [HttpGet("/api/c/Customer/List")]
-        public async Task<ActionResult> Get(CancellationToken cancellationToken)
+        [HttpGet("/api/g/List")]
+        public async Task<Timer[]> Get(CancellationToken cancellationToken)
         {
-            return Ok();
+            var listOfGifs = await _service.ListAllGifsForUserAsync(HttpContext.User.FindFirst(ClaimTypes.Email)?.Value,
+                cancellationToken);
+            return listOfGifs;
         }
     }
 }

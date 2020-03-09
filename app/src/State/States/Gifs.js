@@ -14,9 +14,21 @@ export const gifsReducer = (state = {
     }
 };
 
+export const postNewTimer = (targetTime) => {
+    return function (dispatch) {
+        return axios(`/api/g/New/${targetTime}`, {
+            method: "post",
+            withCredentials: true
+        }).then(
+            (result) => dispatch(fetchListSuccess(result))
+        )
+            .catch(err => err)
+    }
+}
+
 export const fetchList = () => {
     return function (dispatch) {
-        return axios('/api/c/Customer/List', {
+        return axios('/api/g/List', {
             method: "get",
             withCredentials: true
         }).then(
@@ -33,9 +45,9 @@ export const fetchListSuccess = (response) => ({
     }
 });
 
-export const loginFailure = (error) => ({
-    type: "LOGIN_FAILURE",
+export const postNewTimerSuccess = (response) => ({
+    type: "POST_NEW_TIMER_SUCCESS",
     payload: {
-        error: error
+        response: response.data
     }
 });

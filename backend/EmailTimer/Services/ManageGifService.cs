@@ -8,6 +8,7 @@ using EmailTimer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Timer = EmailTimer.Models.Timer;
 
 namespace EmailTimer.Services
@@ -15,11 +16,9 @@ namespace EmailTimer.Services
     public class ManageGifService
     {
         private readonly EmailTimerContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
-        public ManageGifService(EmailTimerContext context, UserManager<IdentityUser> userManager)
+        public ManageGifService(EmailTimerContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
         private async Task<String> GenerateIdentifier( int length)
         {
@@ -60,6 +59,15 @@ namespace EmailTimer.Services
                 return accessor;
             }
             return null;
+        }
+        public async Task<Timer[]> ListAllGifsForUserAsync(string email, CancellationToken cancellationToken)
+        {
+            var user =  _context.Customers.FirstOrDefault(e => e.Email == email);
+            var userId = user.Id;
+            var result = await _context.Timers.Where(e => e.CustomerId == userId)
+                .ToArrayAsync(cancellationToken);
+            return result;
+
         }
     }
 }

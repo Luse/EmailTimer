@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { register } from '../../State/States/User';
+import { register } from '../../State/ActionCreator';
 
 export const RegisterForm = props => {
     const [username, setUsername] = React.useState("");

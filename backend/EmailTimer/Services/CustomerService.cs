@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Timer = EmailTimer.Models.Timer;
 
 namespace EmailTimer.Services
 {
@@ -65,6 +67,5 @@ namespace EmailTimer.Services
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);
             return new SignInResult(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
         }
-
     }
 }
