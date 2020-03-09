@@ -49,12 +49,17 @@ namespace EmailTimer.Services
             {
                 return null;
             }
-            var userId = _context.Customers.FirstOrDefault(user => user.Email == customerEmail).Id;
-            var time = DateTime.Parse(targetTime);
-            var timer = new Timer {CreatedAt = DateTime.Today, TargetDate = time, Note = "test", WebAccessor = accessor, CustomerId = userId };
-            await _context.Timers.AddAsync(timer, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
-            return accessor;
+            var user =  _context.Customers.FirstOrDefault(e => e.Email == customerEmail);
+            if (user != null)
+            {
+                var userId = user.Id;
+                var time = DateTime.Parse(targetTime);
+                var timer = new Timer {CreatedAt = DateTime.Today, TargetDate = time, Note = "test", WebAccessor = accessor, CustomerId = userId };
+                await _context.Timers.AddAsync(timer, cancellationToken);
+                await _context.SaveChangesAsync(cancellationToken);
+                return accessor;
+            }
+            return null;
         }
     }
 }

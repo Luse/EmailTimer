@@ -37,9 +37,9 @@ namespace EmailTimer.Controllers
         {
             if (targetDate == null) return BadRequest();
             var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
-            var test = await _service.CreateNewTimer(targetDate, userEmail, cancellationToken );
-            if (test == null) return BadRequest();
-            return Ok(test);
+            var timer = await _service.CreateNewTimer(targetDate, userEmail, cancellationToken );
+            if (timer == null) return BadRequest();
+            return Ok(timer);
         } 
         [Authorize]
         [HttpGet("/api/c/Customer/List")]
