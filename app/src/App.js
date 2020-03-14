@@ -1,10 +1,9 @@
 import React from 'react';
-import { Login } from './Components/Login/Login';
-import { Register } from './Components/Register/Register';
 import { Timers } from './Components/Timers/Timers';
 import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn } from './State/States/User';
-
+import { Container } from './Components/Container/Container';
+import { LoginRegisterContainer } from './Components/LoginRegisterContainer/LoginRegisterContainer';
 function App() {
   const { user } = useSelector(state => ({
     user: state.userReducer,
@@ -20,9 +19,10 @@ function App() {
   
   return (
     <div className="App">
-      <Login />
-      <Register />
+      <Container>
+      <LoginRegisterContainer />
       <Timers />
+      </Container>
     </div>
   );
 }
