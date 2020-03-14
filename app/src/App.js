@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { isLoggedIn } from './State/States/User';
 import { Container } from './Components/Container/Container';
 import { LoginRegisterContainer } from './Components/LoginRegisterContainer/LoginRegisterContainer';
+import { Header } from './Components/Header/Header';
+
 function App() {
   const { user } = useSelector(state => ({
     user: state.userReducer,
@@ -20,7 +22,10 @@ function App() {
   return (
     <div className="App">
       <Container>
-      <LoginRegisterContainer />
+        <Header>
+         <LoginRegisterContainer />
+
+        </Header>
       <Timers />
       </Container>
     </div>

@@ -4,6 +4,7 @@ import { login } from '../../../State/ActionCreator';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 
 export const LoginForm = props => {
     const [username, setUsername] = React.useState("");
@@ -20,7 +21,9 @@ export const LoginForm = props => {
                 />
                 <TextField type="password" onChange={(event) => setPassword(event.target.value)} id="password" placeholder="Password" name="password" required
                 />
-            <TextField type="submit" value="Submit" />
+            <Button type="submit" >
+                Submit
+            </Button>
         </form>
     </Box >
 }
