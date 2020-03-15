@@ -22,7 +22,7 @@ namespace EmailTimer.Services
         }
         private async Task<String> GenerateIdentifier( int length)
         {
-            StringBuilder builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder(); 
             Enumerable
                 .Range(65, 26)
                 .Select(e => ((char)e).ToString())
