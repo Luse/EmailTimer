@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector,useDispatch } from "react-redux";
 import { fetchList } from '../../State/ActionCreator';
-import {NewTimer} from './NewTimer'
+import {NewTimer} from './NewTimer';
+import Box from '@material-ui/core/Box';
+
 export const Timers = props => {
     const { user, gifs } = useSelector(state => ({
         user: state.userReducer,
@@ -15,12 +17,12 @@ export const Timers = props => {
     
 
     if (!user.authenticated) return null
-    return <div>
+    return <Box gridColumn="2" gridRow="1">
       <NewTimer />
         timers:
         {gifs.list.map( gif => <div>
           target: {gif.targetDate} <br/>
           accessor: {gif.webAccessor}
           </div>)}
-    </div >
+    </Box >
 }

@@ -16,7 +16,7 @@ export const LoginRegisterContainer = props => {
     if(user.authenticated){
         return <Logout />
     }
-    return <Box padding>
+    return <Box gridColumn="1" padding>
             <Box paddingBottom>
                 <ButtonGroup size="large" color="primary" aria-label="large outlined primary button group">
                     <Button onClick={()=> setToggleLoginOrRegister(!toggleLoginOrRegister)} color="primary" variant={toggleLoginOrRegister ? "contained" : 'outline'}>Login</Button>

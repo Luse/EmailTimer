@@ -5,6 +5,8 @@ import { isLoggedIn } from './State/States/User';
 import { Container } from './Components/Container/Container';
 import { LoginRegisterContainer } from './Components/LoginRegisterContainer/LoginRegisterContainer';
 import { Header } from './Components/Header/Header';
+import { Content } from './Components/Content/Content';
+import Box from '@material-ui/core/Box';
 
 function App() {
   const { user } = useSelector(state => ({
@@ -20,15 +22,16 @@ function App() {
   }, [dispatch, user])
   
   return (
-    <div className="App">
+    <Box height="100%" className="App">
       <Container>
         <Header>
          <LoginRegisterContainer />
-
         </Header>
-      <Timers />
+        <Content>
+          <Timers />
+        </Content>
       </Container>
-    </div>
+    </Box>
   );
 }
 

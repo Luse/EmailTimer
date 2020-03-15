@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { logout } from '../../../State/ActionCreator';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 
 export const Logout = props => {
     const dispatch = useDispatch();
@@ -14,5 +15,7 @@ export const Logout = props => {
         return null
     }
 
-    return <Button variant="outlined"  onClick={() => dispatch(logout())}>Logout</Button>
+    return <Box gridColumn="6">
+            <Button variant="outlined"  onClick={() => dispatch(logout())}>Logout</Button>
+        </Box>
 }

@@ -2,8 +2,8 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 
 
-export const Header = props => (
-<Box display="grid" gridArea=" 1 / 1 / 2 / 6">
+export const Content = props => (
+<Box display="grid" gridArea="2 / 1 / 6 / 6">
   {props.children}
 </Box>
 )
