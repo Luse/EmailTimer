@@ -19,10 +19,10 @@ export const Timers = props => {
     if (!user.authenticated) return null
     return <Box gridColumn="2" gridRow="1">
       <NewTimer />
-        timers:
-        {gifs.list.map( gif => <div>
-          target: {gif.targetDate} <br/>
-          accessor: {gif.webAccessor}
-          </div>)}
+        timers: <br/>
+        {gifs.list.map( gif => <code>
+          https://www.mailtimer.com/{gif.webAccessor}
+          <br/>
+          </code>)}
     </Box >
 }
