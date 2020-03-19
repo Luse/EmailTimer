@@ -27,7 +27,6 @@ export const Timers = props => {
         {gifs.list.map( gif => 
           <ListItem>
             <ListItemText secondary={new Date(gif.targetDate).toLocaleDateString()} primary={`https://www.mailtimer.com/${gif.webAccessor}`} />
-        
           </ListItem>
           )}
         </List>
