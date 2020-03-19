@@ -3,6 +3,10 @@ import { useSelector,useDispatch } from "react-redux";
 import { fetchList } from '../../State/ActionCreator';
 import {NewTimer} from './NewTimer';
 import Box from '@material-ui/core/Box';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
 
 export const Timers = props => {
     const { user, gifs } = useSelector(state => ({
@@ -13,16 +17,19 @@ export const Timers = props => {
     const dispatch = useDispatch();
     React.useEffect( () => {
          dispatch(fetchList())
-    }, [dispatch])
+    }, [dispatch, user.authenticated])
     
 
     if (!user.authenticated) return null
-    return <Box gridColumn="2" gridRow="1">
+    return <Box gridColumn="3" gridRow="1" width="500px">
       <NewTimer />
-        timers: <br/>
-        {gifs.list.map( gif => <code>
-          https://www.mailtimer.com/{gif.webAccessor}
-          <br/>
-          </code>)}
+        <List >
+        {gifs.list.map( gif => 
+          <ListItem>
+            <ListItemText secondary={new Date(gif.targetDate).toLocaleDateString()} primary={`https://www.mailtimer.com/${gif.webAccessor}`} />
+        
+          </ListItem>
+          )}
+        </List>
     </Box >
 }

@@ -7,7 +7,7 @@ import { LoginRegisterContainer } from './Components/LoginRegisterContainer/Logi
 import { Header } from './Components/Header/Header';
 import { Content } from './Components/Content/Content';
 import Box from '@material-ui/core/Box';
-
+import {Logout} from './Components/LoginRegisterContainer/Login/Logout';
 function App() {
   const { user } = useSelector(state => ({
     user: state.userReducer,
@@ -25,9 +25,10 @@ function App() {
     <Box height="100%" className="App">
       <Container>
         <Header>
-         <LoginRegisterContainer />
+        <Logout />
         </Header>
         <Content>
+        <LoginRegisterContainer />
           <Timers />
         </Content>
       </Container>

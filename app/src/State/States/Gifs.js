@@ -5,10 +5,12 @@ export const gifsReducer = (state = {
 }, action) => {
     switch (action.type) {
         case 'FETCH_LIST_SUCCESS':
+            console.log('action.payload', action.payload)
             return state = {
                 ...state,
                 list: action.payload.response,
             };
+        case 'POST_LIST_SUCCESS':
         default:
             return state
     }
@@ -20,7 +22,7 @@ export const postNewTimer = (targetTime) => {
             method: "post",
             withCredentials: true
         }).then(
-            (result) => dispatch(fetchListSuccess(result))
+            (result) => dispatch(postListSuccess(result))
         )
             .catch(err => err)
     }
@@ -40,6 +42,13 @@ export const fetchList = () => {
 
 export const fetchListSuccess = (response) => ({
     type: "FETCH_LIST_SUCCESS",
+    payload: {
+        response: response.data
+    }
+});
+
+export const postListSuccess = (response) => ({
+    type: "POST_LIST_SUCCESS",
     payload: {
         response: response.data
     }

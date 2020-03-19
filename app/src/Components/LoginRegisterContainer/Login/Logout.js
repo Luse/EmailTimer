@@ -15,7 +15,7 @@ export const Logout = props => {
         return null
     }
 
-    return <Box gridColumn="6">
+    return <Box gridColumn="10">
             <Button variant="outlined"  onClick={() => dispatch(logout())}>Logout</Button>
         </Box>
 }
