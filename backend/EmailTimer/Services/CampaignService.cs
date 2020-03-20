@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace EmailTimer.Services
 
         public async Task<object> CreateNewCampaign(string campaignName, CancellationToken cancellationToken)
         {
-            return await _context.Campaigns.AddAsync(new Campaign(), cancellationToken);
+            return await _context.Campaigns.AddAsync(new Campaign{Name = campaignName, CreatedAt = DateTime.Now}, cancellationToken);
         }
 
 
