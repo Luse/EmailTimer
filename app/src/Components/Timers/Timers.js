@@ -6,7 +6,8 @@ import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import { DeleteTimerButton } from './DeleteTimerButton';
 
 export const Timers = props => {
     const { user, gifs } = useSelector(state => ({
@@ -27,6 +28,9 @@ export const Timers = props => {
         {gifs.list.map( gif => 
           <ListItem>
             <ListItemText secondary={new Date(gif.targetDate).toLocaleDateString()} primary={`https://www.mailtimer.com/${gif.webAccessor}`} />
+            <ListItemSecondaryAction>
+              <DeleteTimerButton id={gif.id} />
+            </ListItemSecondaryAction>
           </ListItem>
           )}
         </List>

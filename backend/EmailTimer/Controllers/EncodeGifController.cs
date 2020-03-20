@@ -50,5 +50,13 @@ namespace EmailTimer.Controllers
                 cancellationToken);
             return listOfGifs;
         }
+        [Authorize]
+        [HttpPost("/api/g/Delete/{id}")]
+        public async Task<ActionResult> Delete(long id, CancellationToken cancellationToken)
+        {
+            var result = await _service.DeleteTimer(id, cancellationToken);
+            if(result) return Ok();
+            return BadRequest();
+        }
     }
 }

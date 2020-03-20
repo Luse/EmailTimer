@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { postNewTimer, fetchList } from '../../State/ActionCreator';
+import { postNewTimer } from '../../State/ActionCreator';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
@@ -10,7 +10,6 @@ export const NewTimer = props => {
     console.log('targetDate', targetDate)
     const handleSubmit = (event) => {
         dispatch(postNewTimer(targetDate))
-        dispatch(fetchList())
         event.preventDefault();
     }
     

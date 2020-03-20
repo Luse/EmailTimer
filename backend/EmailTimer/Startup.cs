@@ -33,6 +33,7 @@ namespace EmailTimer
             services.AddScoped<EncodeGifService>();
             services.AddScoped<ManageGifService>();
             services.AddScoped<CustomerService>();
+            services.AddScoped<CampaignService>();
             services.AddDbContext<EmailTimerContext>(opt =>
                 opt.UseNpgsql( Configuration.GetConnectionString("DefaultConnection") ));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

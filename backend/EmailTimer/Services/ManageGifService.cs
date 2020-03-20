@@ -40,7 +40,7 @@ namespace EmailTimer.Services
             return timer?.TargetDate;
         }
 
-        public async Task<ActionResult<String>> CreateNewTimer(String targetTime, string customerEmail, CancellationToken cancellationToken)
+        public async Task<Timer[]> CreateNewTimer(String targetTime, string customerEmail, CancellationToken cancellationToken)
         {
             var accessor = await GenerateIdentifier(6);
             bool parseResult = DateTime.TryParse(targetTime, out DateTime result);
@@ -53,10 +53,10 @@ namespace EmailTimer.Services
             {
                 var userId = user.Id;
                 var time = DateTime.Parse(targetTime);
-                var timer = new Timer {CreatedAt = DateTime.Today, TargetDate = time, Note = "test", WebAccessor = accessor, CustomerId = userId };
+                var timer = new Timer {CreatedAt = DateTime.Today, TargetDate = time, Note = "test", WebAccessor = accessor, CampaignId = userId };
                 await _context.Timers.AddAsync(timer, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
-                return accessor;
+                return await ListAllGifsForUserAsync(customerEmail, cancellationToken);
             }
             return null;
         }
@@ -64,10 +64,19 @@ namespace EmailTimer.Services
         {
             var user =  _context.Customers.FirstOrDefault(e => e.Email == email);
             var userId = user.Id;
-            var result = await _context.Timers.Where(e => e.CustomerId == userId)
+            var result = await _context.Timers.Where(e => e.CampaignId == userId)
                 .ToArrayAsync(cancellationToken);
             return result;
 
+        }
+
+        public async Task<bool> DeleteTimer(long id, CancellationToken cancellationToken)
+        {
+            var timer = await _context.Timers.Where(a => a.Id == id).FirstOrDefaultAsync(cancellationToken);
+            if (timer is null) return false;
+            _context.Timers.Remove(timer);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
         }
     }
 }

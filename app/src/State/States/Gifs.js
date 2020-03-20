@@ -5,12 +5,12 @@ export const gifsReducer = (state = {
 }, action) => {
     switch (action.type) {
         case 'FETCH_LIST_SUCCESS':
+        case 'POST_TIMER_SUCCESS':
             console.log('action.payload', action.payload)
             return state = {
                 ...state,
                 list: action.payload.response,
             };
-        case 'POST_LIST_SUCCESS':
         default:
             return state
     }
@@ -22,10 +22,22 @@ export const postNewTimer = (targetTime) => {
             method: "post",
             withCredentials: true
         }).then(
-            (result) => dispatch(postListSuccess(result))
+            (result) => dispatch(postTimerSuccess(result))
         )
             .catch(err => err)
     }
+}
+
+export const deleteTimer = (id) => {
+    return function (dispatch) {
+        return axios(`/api/g/Delete/${id}`, {
+            method: "post",
+            withCredentials: true
+        }).then(
+            (result) => dispatch(postDeleteSuccess(result))
+        )
+            .catch(err => err)
+    } 
 }
 
 export const fetchList = () => {
@@ -47,7 +59,14 @@ export const fetchListSuccess = (response) => ({
     }
 });
 
-export const postListSuccess = (response) => ({
+export const postTimerSuccess = (response) => ({
+    type: "POST_TIMER_SUCCESS",
+    payload: {
+        response: response.data
+    }
+});
+
+export const postDeleteSuccess = (response) => ({
     type: "POST_LIST_SUCCESS",
     payload: {
         response: response.data

@@ -3,13 +3,12 @@ using System.Collections.Generic;
 
 namespace EmailTimer.Models
 {
-    public class Customer
+    public class Campaign
     {
         public long Id { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? LastUpdatedAt { get; set; }
-        public List<Campaign> Campaigns { get; set; }
+        public List<Timer> Timers { get; set; }
+        public CampaignConfiguration Configuration { get; set; }
     }
 }
