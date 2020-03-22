@@ -10,6 +10,7 @@ function App() {
   const { user } = useSelector(state => ({
     user: state.userReducer,
 }));
+
   const dispatch = useDispatch();
   React.useEffect(() => {
       dispatch(isLoggedIn())
