@@ -39,6 +39,20 @@ export const fetchCampaigns = () => {
             .catch(err => dispatch(err))
     }
 }
+export const postNewCampaign = (campaignName) => {
+    return function (dispatch) {
+        return axios(`/api/ca/campaigns/New/${campaignName}`, {
+            method: "post",
+            withCredentials: true,
+            headers: {
+                Authorization: "Bearer " +localStorage.getItem('token')
+            },
+        }).then(
+            (result) => dispatch(postCampaignSuccess(result))
+        )
+            .catch(err => err)
+    }
+}
 
 export const pendingFetchingCampaigns = () => ({
     type: "FETCH_CAMPAIGNS_PENDING"
@@ -56,3 +70,8 @@ export const fetchCampaignFailure = (error) => ({
     type: "FETCH_CAMPAIGNS_FAILURE",
     error: error
 });
+
+export const postCampaignSuccess = (result) => ({
+    type: 'POST_CAMPAIGN_SUCCESS',
+    result
+})
