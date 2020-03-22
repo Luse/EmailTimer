@@ -19,11 +19,12 @@ namespace EmailTimer.Controllers
             _service = service;
         }
         [Authorize]
-        [HttpPost("/{campaignName}")]
+        [HttpPost("New/{campaignName}")]
         public async Task<ActionResult> Post(string campaignName, CancellationToken cancellationToken)
         {
             if (campaignName == null) return BadRequest();
-            await _service.CreateNewCampaign(campaignName, cancellationToken);
+            var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+            await _service.CreateNewCampaign(campaignName, userEmail, cancellationToken);
             return Ok();
         } 
         [Authorize]
