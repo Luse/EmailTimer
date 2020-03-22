@@ -21,7 +21,7 @@ namespace EmailTimer.Controllers
         }
         [Authorize]
         [HttpGet("IsLoggedIn")]
-        public async Task<IActionResult> IsLoggedIn()
+        public async Task<IActionResult> IsLoggedIn(CancellationToken cancellationToken)
         {
             var currentUser = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
             return Ok(currentUser);
@@ -32,15 +32,18 @@ namespace EmailTimer.Controllers
         {
             var a = body.ToObject<LoginModel>();
             await _service.RegisterNewUser(a.Email, a.Password, cancellationToken);
-            return await _service.Login(a.Email, a.Password, cancellationToken);
+            var result = await _service.Login(a.Email, a.Password, cancellationToken);
+            if (result is null) return Forbid();
+            return Ok(result);
         }
         
         [HttpPost("Login")]
         public async Task<ActionResult> Login([FromBody] JObject body, CancellationToken cancellationToken)
         {
             var a = body.ToObject<LoginModel>();
-            
-            return await _service.Login(a.Email, a.Password, cancellationToken);
+            var result = await _service.Login(a.Email, a.Password, cancellationToken);
+            if (result is null) return Forbid();
+            return Ok(new IsLoggedInResult{Email = a.Email, Token = result});
         }
         
         [HttpPost("Logout")]
@@ -54,5 +57,11 @@ namespace EmailTimer.Controllers
             public string Email { get; set; }
             public string Password { get; set; }
         }
+    }
+
+    public class IsLoggedInResult
+    {
+        public string Email { get; set; }
+        public string Token { get; set; }
     }
 }

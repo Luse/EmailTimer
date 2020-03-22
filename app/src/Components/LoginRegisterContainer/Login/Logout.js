@@ -11,11 +11,7 @@ export const Logout = props => {
         user: state.userReducer,
     }));
     
-    if(!user.authenticated){
-        return null
-    }
-
     return <Box gridColumn="10">
-            <Button variant="outlined"  onClick={() => dispatch(logout())}>Logout</Button>
+            <Button variant="outlined"  onClick={() => dispatch(logout())}>{`Logout ${user.username}`}</Button>
         </Box>
 }

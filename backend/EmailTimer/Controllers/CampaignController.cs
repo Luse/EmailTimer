@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,11 @@ namespace EmailTimer.Controllers
         {
             var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
             var list = await _service.GetAllCampaignsForUser(userEmail, cancellationToken);
+            if (list is null)
+            {
+                return Ok(new List<string>());
+            }
+            
             return Ok(list);
         } 
         [Authorize]

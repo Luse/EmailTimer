@@ -15,7 +15,7 @@ export const LoginForm = props => {
         dispatch(login(Email, password))
         event.preventDefault();
     }
-    return <Box component={Card} padding style={{ display: 'flex', flexFlow: 'column', width: '200px' }}>
+    return <Box component={Card} padding={1} style={{ display: 'flex', flexFlow: 'column', width: '200px' }}>
         <form onSubmit={handleSubmit}>
                 <TextField type="text" onChange={(event) => setEmail(event.target.value)} id="name" placeholder="Email" name="Email" required
                 />

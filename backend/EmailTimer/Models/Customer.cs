@@ -11,5 +11,6 @@ namespace EmailTimer.Models
         public DateTime CreatedAt { get; set; }
         public DateTime? LastUpdatedAt { get; set; }
         public List<Campaign> Campaigns { get; set; }
+        public string Token { get; set; }
     }
 }

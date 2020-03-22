@@ -20,8 +20,6 @@ export const Timers = props => {
          dispatch(fetchList())
     }, [dispatch, user.authenticated])
     
-
-    if (!user.authenticated) return null
     return <Box gridColumn="3" gridRow="1" width="500px">
       <NewTimer />
         <List >

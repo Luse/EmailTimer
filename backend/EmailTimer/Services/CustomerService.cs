@@ -1,19 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EmailTimer.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Timer = EmailTimer.Models.Timer;
+using SignInResult = Microsoft.AspNetCore.Mvc.SignInResult;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace EmailTimer.Services
 {
@@ -50,22 +49,37 @@ namespace EmailTimer.Services
             return hashed;
         }
         
-        public async Task<ActionResult> Login(string email, string password, CancellationToken cancellationToken)
+        public async Task<string> Login(string email, string password, CancellationToken cancellationToken)
         {
             var user = await _context.Customers.FirstOrDefaultAsync(a => a.Email == email, cancellationToken: cancellationToken);
             if (user.PasswordHash != CreateHash(password))
             {
-                return new ForbidResult();
+                return null;
             }
-            
-            var claims = new List<Claim>
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(AppSettings.GetValue<string>("Salt"));
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
-                new Claim(ClaimTypes.Email, email),
-                new Claim(ClaimTypes.Role, "customer")
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Email, email), 
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var claimsIdentity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            return new SignInResult(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+    
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            user.Token = tokenHandler.WriteToken(token);
+
+
+            return user.Token;
+        }
+
+        public async Task<string> FindTokenForCurrentUser(string currentUser, CancellationToken cancellationToken)
+        {
+            var customer =  await _context.Customers.FirstOrDefaultAsync(a => a.Email == currentUser, cancellationToken);
+            return customer.Token;
         }
     }
 }

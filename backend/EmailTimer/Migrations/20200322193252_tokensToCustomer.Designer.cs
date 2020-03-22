@@ -3,15 +3,17 @@ using System;
 using EmailTimer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EmailTimer.Migrations
 {
     [DbContext(typeof(EmailTimerContext))]
-    partial class EmailTimerContextModelSnapshot : ModelSnapshot
+    [Migration("20200322193252_tokensToCustomer")]
+    partial class tokensToCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
