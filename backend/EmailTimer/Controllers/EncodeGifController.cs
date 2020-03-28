@@ -33,20 +33,20 @@ namespace EmailTimer.Controllers
             return File(image, "image/gif");
         }
         [Authorize]
-        [HttpPost("/api/g/New/{targetDate}")]
-        public async Task<ActionResult> Post(string targetDate, CancellationToken cancellationToken)
+        [HttpPost("/api/g/{campaignId}/New/{targetDate}")]
+        public async Task<ActionResult> Post(string targetDate, long campaignId, CancellationToken cancellationToken)
         {
             if (targetDate == null) return BadRequest();
             var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
-            var timer = await _service.CreateNewTimer(targetDate, userEmail, cancellationToken );
+            var timer = await _service.CreateNewTimer(targetDate, userEmail, campaignId, cancellationToken );
             if (timer == null) return BadRequest();
             return Ok(timer);
         } 
         [Authorize]
-        [HttpGet("/api/g/List")]
-        public async Task<Timer[]> Get(CancellationToken cancellationToken)
+        [HttpGet("/api/g/List/{campaignId}")]
+        public async Task<Timer[]> Get(long campaignId, CancellationToken cancellationToken)
         {
-            var listOfGifs = await _service.ListAllGifsForUserAsync(HttpContext.User.FindFirst(ClaimTypes.Email)?.Value,
+            var listOfGifs = await _service.ListAllGifsForCampaignAsync(HttpContext.User.FindFirst(ClaimTypes.Email)?.Value, campaignId,
                 cancellationToken);
             return listOfGifs;
         }

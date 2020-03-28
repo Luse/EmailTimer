@@ -23,9 +23,10 @@ export const Router = () => {
                 </Route>
                 <AuthenticatedRoute path="/dashboard">
                     <Dashboard>
-                        <Route exact path="/dashboard" component={Timers} />
+                        <Route exact path="/dashboard" component={Campaigns} />
                         <Route path="/dashboard/timers" component={Timers} />
-                        <Route path="/dashboard/Campaigns" component={Campaigns} />
+                        <Route exact path="/dashboard/Campaigns" component={Campaigns} />
+                        <Route path="/dashboard/Campaigns/:id" component={Timers} />
                     </Dashboard>
                 </AuthenticatedRoute>
             </Switch>

@@ -8,6 +8,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { DeleteTimerButton } from './DeleteTimerButton';
+import {
+  useParams
+} from "react-router-dom";
 
 export const Timers = props => {
     const { user, gifs } = useSelector(state => ({
@@ -16,10 +19,11 @@ export const Timers = props => {
     }));
 
     const dispatch = useDispatch();
+    let { id } = useParams();
+
     React.useEffect( () => {
-         dispatch(fetchList())
-    }, [dispatch, user.authenticated])
-    
+         dispatch(fetchList(id))
+    }, [dispatch, id, user.authenticated])
     return <Box gridColumn="3" gridRow="1" width="500px">
       <NewTimer />
         <List >

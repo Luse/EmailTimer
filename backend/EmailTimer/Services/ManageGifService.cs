@@ -40,7 +40,7 @@ namespace EmailTimer.Services
             return timer?.TargetDate;
         }
 
-        public async Task<Timer[]> CreateNewTimer(String targetTime, string customerEmail, CancellationToken cancellationToken)
+        public async Task<Timer[]> CreateNewTimer(String targetTime, string customerEmail, long campaignId, CancellationToken cancellationToken)
         {
             var accessor = await GenerateIdentifier(6);
             bool parseResult = DateTime.TryParse(targetTime, out DateTime result);
@@ -53,23 +53,22 @@ namespace EmailTimer.Services
             {
                 var userId = user.Id;
                 var time = DateTime.Parse(targetTime);
-                var timer = new Timer {CreatedAt = DateTime.Today, TargetDate = time, Note = "test", WebAccessor = accessor, CampaignId = userId };
+                var timer = new Timer {CreatedAt = DateTime.Today, TargetDate = time, Note = "test", WebAccessor = accessor, CampaignId = campaignId };
                 await _context.Timers.AddAsync(timer, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
-                return await ListAllGifsForUserAsync(customerEmail, cancellationToken);
+                return await ListAllGifsForCampaignAsync(customerEmail, campaignId,  cancellationToken);
             }
             return null;
         }
-        public async Task<Timer[]> ListAllGifsForUserAsync(string email, CancellationToken cancellationToken)
+        public async Task<Timer[]> ListAllGifsForCampaignAsync(string email, long campaignId, CancellationToken cancellationToken)
         {
             var user =  _context.Customers.FirstOrDefault(e => e.Email == email);
             var userId = user.Id;
-            var result = await _context.Timers.Where(e => e.CampaignId == userId)
+            var result = await _context.Timers
+                .Where(e => e.CampaignId == campaignId)
                 .ToArrayAsync(cancellationToken);
             return result;
-
         }
-
         public async Task<bool> DeleteTimer(long id, CancellationToken cancellationToken)
         {
             var timer = await _context.Timers.Where(a => a.Id == id).FirstOrDefaultAsync(cancellationToken);

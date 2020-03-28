@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Box from '@material-ui/core/Box';
+import { Link } from 'react-router-dom';
 
 export const CampaignList = () => {
     const { campaigns } = useSelector(state => ({
@@ -16,7 +17,6 @@ export const CampaignList = () => {
         dispatch(fetchCampaigns())
     }, [dispatch])
 
-    console.log('campaigns', campaigns)
     if (campaigns.list.length === 0) {
         return <Typography>
             No Campaigns yet :(
@@ -28,7 +28,7 @@ export const CampaignList = () => {
             </Typography>
             <List >
         {campaigns.list.map( a =>
-             <ListItem button>
+             <ListItem component={Link} to={`/dashboard/campaigns/${a.id}`} button>
              <ListItemText secondary={a.createdAt} primary={a.name} />
            </ListItem>    
         )}

@@ -15,9 +15,9 @@ export const gifsReducer = (state = {
     }
 };
 
-export const postNewTimer = (targetTime) => {
+export const postNewTimer = (campaignId, targetTime) => {
     return function (dispatch) {
-        return axios(`/api/g/New/${targetTime}`, {
+        return axios(`/api/g/${campaignId}/New/${targetTime}`, {
             method: "post",
             withCredentials: true,
             headers: {
@@ -45,9 +45,9 @@ export const deleteTimer = (id) => {
     } 
 }
 
-export const fetchList = () => {
+export const fetchList = (campaignId) => {
     return function (dispatch) {
-        return axios('/api/g/List', {
+        return axios(`/api/g/List/${campaignId}`, {
             method: "get",
             withCredentials: true,
             headers: {
