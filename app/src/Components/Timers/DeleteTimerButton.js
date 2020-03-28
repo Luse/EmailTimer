@@ -4,12 +4,15 @@ import { deleteTimer, fetchList } from '../../State/ActionCreator';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import { useParams } from "react-router-dom";
 
 export const DeleteTimerButton = props => {
     const dispatch = useDispatch();
+    let { id } = useParams();
+
     const handleDelete = () => {
         dispatch(deleteTimer(props.id))
-        .then(dispatch(fetchList()))
+        .then(dispatch(fetchList(id)))
     }
 
     return (
