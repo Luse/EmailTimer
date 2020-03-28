@@ -28,7 +28,7 @@ export const LoginRegisterContainer = props => {
         return null
     }
     const Component = toggleLoginOrRegister ? Login : Register
-    return <Box gridColumn="2" gridRow="2">
+    return <Box gridColumn="5" gridRow="2">
         <Box paddingBottom="1" >
             <ButtonGroup size="large" color="primary" aria-label="large outlined primary button group">
                 <Button onClick={() => setToggleLoginOrRegister(!toggleLoginOrRegister)} color="primary" variant={toggleLoginOrRegister ? "contained" : 'outlined'}>Login</Button>
