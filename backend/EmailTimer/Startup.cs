@@ -65,6 +65,12 @@ namespace EmailTimer
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyHeader();
+                builder.AllowCredentials();
+                builder.WithOrigins("http://localhost:3000","https://mailtimer.com");
+            });
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
