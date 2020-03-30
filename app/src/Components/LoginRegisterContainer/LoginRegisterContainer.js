@@ -7,11 +7,11 @@ import {
     useHistory,
 } from "react-router-dom";
 import { isLoggedIn } from '../../State/ActionCreator';
-
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+
 export const LoginRegisterContainer = props => {
-    const [toggleLoginOrRegister, setToggleLoginOrRegister] = React.useState(true);
+    const [toggleLoginOrRegister, setToggleLoginOrRegister] = React.useState(false);
     let history = useHistory();
     const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export const LoginRegisterContainer = props => {
         return null
     }
     const Component = toggleLoginOrRegister ? Login : Register
-    return <Box gridColumn="5" gridRow="2">
+    return <Box gridColumn="5" gridRow="5">
         <Box paddingBottom="1" >
             <ButtonGroup size="large" color="primary" aria-label="large outlined primary button group">
                 <Button onClick={() => setToggleLoginOrRegister(!toggleLoginOrRegister)} color="primary" variant={toggleLoginOrRegister ? "contained" : 'outlined'}>Login</Button>

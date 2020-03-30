@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { push } from 'connected-react-router'
 
 export const userReducer = (state = {
     authenticated: false,
@@ -60,8 +61,13 @@ export const register = (username, password) => {
                 Email: username,
                 Password: password
             }
-        }).then(
+        })
+        .then((res) => saveTokenToStorage(res.data.token))
+        .then(
             (result) => dispatch(loginSuccess(result, username))
+        )
+        .then(
+            dispatch(push('/dashboard'))
         )
             .catch(err => err)
     }

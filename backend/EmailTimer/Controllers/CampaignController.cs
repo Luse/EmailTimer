@@ -28,9 +28,9 @@ namespace EmailTimer.Controllers
             return Ok();
         } 
         [Authorize]
-        [HttpGet]
+        [HttpGet("All")]
         public async Task<ActionResult> GetAll( CancellationToken cancellationToken)
-        {
+        { 
             var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
             var list = await _service.GetAllCampaignsForUser(userEmail, cancellationToken);
             if (list is null)

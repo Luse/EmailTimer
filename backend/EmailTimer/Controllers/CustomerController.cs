@@ -34,7 +34,7 @@ namespace EmailTimer.Controllers
             await _service.RegisterNewUser(a.Email, a.Password, cancellationToken);
             var result = await _service.Login(a.Email, a.Password, cancellationToken);
             if (result is null) return Forbid();
-            return Ok(result);
+            return Ok(new IsLoggedInResult{Email = a.Email, Token = result});
         }
         
         [HttpPost("Login")]

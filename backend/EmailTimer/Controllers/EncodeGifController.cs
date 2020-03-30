@@ -20,7 +20,7 @@ namespace EmailTimer.Controllers
             _service = service;
         }
         [AllowAnonymous]
-        [HttpGet("{id}")]
+        [HttpGet("/cdn/{id}")]
         public async Task<ActionResult> Get(String id, CancellationToken cancellationToken)
         {
             var targetTime = await _service.FindTimer(id, cancellationToken);
@@ -44,7 +44,7 @@ namespace EmailTimer.Controllers
         } 
         [Authorize]
         [HttpGet("/api/g/List/{campaignId}")]
-        public async Task<Timer[]> Get(long campaignId, CancellationToken cancellationToken)
+        public async Task<Timer[]> GetSingle(long campaignId, CancellationToken cancellationToken)
         {
             var listOfGifs = await _service.ListAllGifsForCampaignAsync(HttpContext.User.FindFirst(ClaimTypes.Email)?.Value, campaignId,
                 cancellationToken);

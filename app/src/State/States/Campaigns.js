@@ -27,7 +27,7 @@ export const campaignsReducer = (state = {
 export const fetchCampaigns = () => {
     return function (dispatch) {
         dispatch(pendingFetchingCampaigns())
-        return axios('/api/ca/campaigns', {
+        return axios('/api/ca/campaigns/All', {
             method: "get",
             headers: {
                 Authorization: "Bearer " +localStorage.getItem('token')
@@ -49,6 +49,9 @@ export const postNewCampaign = (campaignName) => {
             },
         }).then(
             (result) => dispatch(postCampaignSuccess(result))
+        )
+        .then(
+            dispatch(fetchCampaigns())
         )
             .catch(err => err)
     }
