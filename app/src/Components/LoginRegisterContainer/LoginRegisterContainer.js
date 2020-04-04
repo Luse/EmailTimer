@@ -9,6 +9,7 @@ import {
 import { isLoggedIn } from '../../State/ActionCreator';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Grid from '@material-ui/core/Grid';
 
 export const LoginRegisterContainer = props => {
     const [toggleLoginOrRegister, setToggleLoginOrRegister] = React.useState(false);
@@ -28,14 +29,15 @@ export const LoginRegisterContainer = props => {
         return null
     }
     const Component = toggleLoginOrRegister ? Login : Register
-    return <Box gridColumn="5" gridRow="5">
-        <Box paddingBottom="1" >
+    return <Grid container justify="center">
+        <Box paddingTop={5}>
+        <Box paddingBottom={1} >
             <ButtonGroup size="large" color="primary" aria-label="large outlined primary button group">
                 <Button onClick={() => setToggleLoginOrRegister(!toggleLoginOrRegister)} color="primary" variant={toggleLoginOrRegister ? "contained" : 'outlined'}>Login</Button>
                 <Button onClick={() => setToggleLoginOrRegister(!toggleLoginOrRegister)} color="secondary" variant={!toggleLoginOrRegister ? "contained" : 'outlined'} >Register</Button>
             </ButtonGroup>
         </Box>
         <Component />
-
-    </Box>
+        </Box>
+    </Grid>
 };

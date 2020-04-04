@@ -5,6 +5,7 @@ import { Container } from './Components/Container/Container';
 import Box from '@material-ui/core/Box';
 import { Router } from './Route/Routes';
 import { LinearProgress } from "@material-ui/core";
+import MuiContainer from '@material-ui/core/Container';
 
 function App() {
   const { user } = useSelector(state => ({
@@ -17,12 +18,12 @@ function App() {
   }, [dispatch])
   
   return (
-    <Box height="100%" className="App">
-      {user.authenticating && <LinearProgress />}
-      <Container>
-        <Router />
-      </Container>
-    </Box>
+      <MuiContainer className="App">
+        {user.authenticating && <LinearProgress />}
+        <Container>
+          <Router />
+        </Container>
+      </MuiContainer>
   );
 }
 

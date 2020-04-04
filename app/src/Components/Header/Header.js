@@ -1,9 +1,8 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
-
+import { Grid, Paper } from '@material-ui/core';
 
 export const Header = props => (
-<Box display="grid" width="100%" gridArea=" 1 / 1 / 2 / 11">
+<Grid direction="row" justify="flex-end" noWrap alignItems="center" container item spacing={2}>
   {props.children}
-</Box>
+</Grid>
 )

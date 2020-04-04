@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { logout } from '../../../State/ActionCreator';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import { Grid } from '@material-ui/core';
+
 import {
     useHistory,
 } from "react-router-dom";
@@ -20,7 +22,7 @@ export const Logout = props => {
         history.replace('/login');
     }
     
-    return <Box gridColumn="10">
-            <Button variant="outlined"  onClick={handleSignOut}>{`Logout ${user.username}`}</Button>
-        </Box>
+    return <Grid item>
+            <Button variant="outlined"  fullWidth onClick={handleSignOut}>{`Logout ${user.username}`}</Button>
+        </Grid>
 }

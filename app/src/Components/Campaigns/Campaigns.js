@@ -10,7 +10,7 @@ export const Campaigns = () => {
           dispatch(fetchCampaigns())
       }, [dispatch])
  
-    return <Box>
+    return <Box width="500px">
         <Typography>
             Campaigns
         </Typography>

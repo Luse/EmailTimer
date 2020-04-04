@@ -7,6 +7,7 @@ import { isLoggedIn } from '../../State/States/User';
 import {
   useHistory,
 } from "react-router-dom";
+import { Grid } from '@material-ui/core';
 export const Dashboard = (props) => {
   const dispatch = useDispatch();
   let history = useHistory();
@@ -18,13 +19,13 @@ export const Dashboard = (props) => {
     }
   }, [dispatch, history])
   return (
-    <React.Fragment>
+    <Grid container spacing={3}>
       <Header>
         <Logout />
       </Header>
-      <Content>
+      <Content >
         {props.children}
       </Content>
-    </React.Fragment>
+    </Grid>
   );
 }

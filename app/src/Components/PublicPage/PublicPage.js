@@ -19,7 +19,7 @@ export const PublicPage = ()=> (
     </Box>
     <Box gridColumn="4 / 8" gridRow="5" paddingTop={2}>
     <Button component={Link} to="/login" size="large" color="primary" variant="contained" fullWidth>
-    Now in early Alpha
+        Now in early Alpha
         </Button>
     </Box>
     <Box gridColumn="10" gridRow="10">
