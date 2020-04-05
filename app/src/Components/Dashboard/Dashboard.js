@@ -8,6 +8,9 @@ import {
   useHistory,
 } from "react-router-dom";
 import { Grid } from '@material-ui/core';
+import { Sidebar } from '../Sidebar/Sidebar';
+import { SidebarNavigation } from '../SiderbarNavigation/SidebarNavigation';
+
 export const Dashboard = (props) => {
   const dispatch = useDispatch();
   let history = useHistory();
@@ -19,10 +22,13 @@ export const Dashboard = (props) => {
     }
   }, [dispatch, history])
   return (
-    <Grid container spacing={3}>
+    <Grid direction="row" alignItems="stretch" justify="space-around" container spacing={2}>
       <Header>
         <Logout />
       </Header>
+      <Sidebar>
+        <SidebarNavigation />
+      </Sidebar>
       <Content >
         {props.children}
       </Content>

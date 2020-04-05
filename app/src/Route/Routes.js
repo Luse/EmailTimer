@@ -11,6 +11,7 @@ import { PublicPage } from '../Components/PublicPage/PublicPage';
 
 import { Timers } from "../Components/Timers/Timers";
 import { Campaigns } from "../Components/Campaigns/Campaigns";
+import { DashboardLanding } from "../Components/DashboardLanding/DashboardLanding";
 export const Router = () => {
     return (
         <BrowserRouter>
@@ -23,7 +24,7 @@ export const Router = () => {
                 </Route>
                 <AuthenticatedRoute path="/dashboard">
                     <Dashboard>
-                        <Route exact path="/dashboard" component={Campaigns} />
+                        <Route exact path="/dashboard" component={DashboardLanding} />
                         <Route path="/dashboard/timers" component={Timers} />
                         <Route exact path="/dashboard/Campaigns" component={Campaigns} />
                         <Route path="/dashboard/Campaigns/:id" component={Timers} />

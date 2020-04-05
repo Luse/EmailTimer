@@ -23,6 +23,6 @@ export const Logout = props => {
     }
     
     return <Grid item>
-            <Button variant="outlined"  fullWidth onClick={handleSignOut}>{`Logout ${user.username}`}</Button>
+            <Button variant="contained"  fullWidth onClick={handleSignOut}>{`Logout ${user.username}`}</Button>
         </Grid>
 }
