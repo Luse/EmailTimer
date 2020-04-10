@@ -41,14 +41,14 @@ namespace EmailTimer.Controllers
             return Ok(list);
         } 
         [Authorize]
-        [HttpDelete("/{campaignId}")]
+        [HttpDelete("{campaignId}")]
         public async Task<ActionResult> Delete(long campaignId, CancellationToken cancellationToken)
         {
             await _service.DeleteCampaign(campaignId, cancellationToken);
             return Ok();
         } 
         [Authorize]
-        [HttpGet("/{campaignId}")]
+        [HttpGet("{campaignId}")]
         public async Task<ActionResult> Post(long campaignId, CancellationToken cancellationToken)
         {
             await _service.GetCampaign(campaignId, cancellationToken);

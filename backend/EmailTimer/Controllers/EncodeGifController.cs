@@ -3,6 +3,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using EmailTimer.Models;
 using EmailTimer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace EmailTimer.Controllers
             _service = service;
         }
         [AllowAnonymous]
-        [HttpGet("/cdn/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult> Get(String id, CancellationToken cancellationToken)
         {
             var targetTime = await _service.FindTimer(id, cancellationToken);
@@ -28,8 +29,8 @@ namespace EmailTimer.Controllers
             {
                 return NotFound();
             }
-
-            var image = await EncodeGifService.Create((DateTime) targetTime);
+            var configuration = new CampaignConfiguration();
+            var image = await EncodeGifService.Create((DateTime) targetTime, configuration);
             return File(image, "image/gif");
         }
         [Authorize]
