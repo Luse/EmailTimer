@@ -52,10 +52,6 @@ export const register = (username, password) => {
     return function (dispatch) {
         return axios('/api/c/Customer/Register', {
             method: "post",
-            headers: {
-                Authorization: "Bearer " +localStorage.getItem('token')
-            },
-            // withCredentials: true,
             responseType: 'json',
             data: {
                 Email: username,
