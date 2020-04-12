@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { logout } from '../../../State/ActionCreator';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
 import { Grid } from '@material-ui/core';
 
 import {
@@ -23,6 +22,6 @@ export const Logout = props => {
     }
     
     return <Grid item>
-            <Button variant="contained"  fullWidth onClick={handleSignOut}>{`Logout ${user.username}`}</Button>
+            <Button variant="contained" fullWidth onClick={handleSignOut}>{`Logout ${user.username}`}</Button>
         </Grid>
 }

@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch } from "react-redux";
 import { postNewCampaign, fetchCampaigns } from '../../State/ActionCreator';
@@ -28,10 +28,10 @@ export const NewCampaign = () => {
         dispatch(fetchCampaigns())
     }
 
-    return <Box>
-        <Button onClick={handleClickOpen} variant="outlined">
+    return <Grid direction="row" container justify="flex-end" >
+        <Button color="primary" onClick={handleClickOpen} variant="contained">
             New Campaign
-    </Button>
+        </Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">New Campaign</DialogTitle>
             <DialogContent>
@@ -57,5 +57,5 @@ export const NewCampaign = () => {
           </Button>
             </DialogActions>
         </Dialog>
-    </Box>
+    </Grid>
 }
