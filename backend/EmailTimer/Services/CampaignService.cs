@@ -19,8 +19,8 @@ namespace EmailTimer.Services
         public async Task<object> CreateNewCampaign(string campaignName, string customerEmail, CancellationToken cancellationToken)
         {
             var user =  await _context.Customers.FirstOrDefaultAsync(e => e.Email == customerEmail, cancellationToken);
-            await _context.Campaigns.AddAsync(new Campaign{Name = campaignName, CustomerId = user.Id, CreatedAt = DateTime.Now}, cancellationToken);
-             return await _context.SaveChangesAsync(cancellationToken);
+            await _context.Campaigns.AddAsync(new Campaign{Name = campaignName, CustomerId = user.Id, CreatedAt = DateTime.Now, Configuration = new CampaignConfiguration()}, cancellationToken);
+            return await _context.SaveChangesAsync(cancellationToken);
         }
 
 
@@ -37,7 +37,7 @@ namespace EmailTimer.Services
         public async Task<object> GetAllCampaignsForUser(string customerEmail, CancellationToken cancellationToken)
         {
             var user =  await _context.Customers.FirstOrDefaultAsync(e => e.Email == customerEmail, cancellationToken);
-            return await _context.Campaigns.Where(x => x.CustomerId == user.Id).ToArrayAsync(cancellationToken);
+            return await _context.Campaigns.Where(x => x.CustomerId == user.Id).Include(a => a.Configuration).ToArrayAsync(cancellationToken);
         }
     }
 }

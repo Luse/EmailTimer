@@ -27,10 +27,7 @@ namespace EmailTimer.Services
             FontCollection fonts = new FontCollection();
             var fontFamily = fonts.Install("Fonts/Montserrat-Bold.ttf");
             TextGraphicsOptions textGraphicsOptions = new TextGraphicsOptions( !configuration.Transparent);
-       
-
-            //TextGraphicsOptions textGraphicsOptions = new TextGraphicsOptions() {Antialias = false, ApplyKerning = true, AlphaCompositionMode = PixelAlphaCompositionMode.DestAtop};
-
+            
             if (DateTime.Now > targetTime)
             {
                 using Image<Rgba32> image = new Image<Rgba32>(width, height);

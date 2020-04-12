@@ -25,7 +25,8 @@ namespace EmailTimer.Controllers
             if (campaignName == null) return BadRequest();
             var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
             await _service.CreateNewCampaign(campaignName, userEmail, cancellationToken);
-            return Ok();
+            var list = await _service.GetAllCampaignsForUser(userEmail, cancellationToken);
+            return Ok(list);
         } 
         [Authorize]
         [HttpGet("All")]

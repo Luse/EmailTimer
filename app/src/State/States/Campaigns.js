@@ -19,6 +19,12 @@ export const campaignsReducer = (state = {
             return state = {
                 ...state, fetching: false
             }
+        case 'POST_CAMPAIGN_SUCCESS':
+            return state = {
+                ...state,
+                list: action.payload.response,
+                fetching: false
+            }
         default:
             return state
     }
@@ -74,7 +80,9 @@ export const fetchCampaignFailure = (error) => ({
     error: error
 });
 
-export const postCampaignSuccess = (result) => ({
+export const postCampaignSuccess = (response) => ({
     type: 'POST_CAMPAIGN_SUCCESS',
-    result
+    payload: {
+        response: response.data
+    }
 })

@@ -21,16 +21,17 @@ namespace EmailTimer.Controllers
             _service = service;
         }
         [AllowAnonymous]
-        [HttpGet("{id}")]
-        public async Task<ActionResult> Get(String id, CancellationToken cancellationToken)
+        [HttpGet("{webAccessor}")]
+        public async Task<ActionResult> Get(string webAccessor, CancellationToken cancellationToken)
         {
-            var targetTime = await _service.FindTimer(id, cancellationToken);
-            if (targetTime == null)
+            var timer = await _service.FindTimer(webAccessor, cancellationToken);
+            if (timer == null)
             {
                 return NotFound();
             }
-            var configuration = new CampaignConfiguration();
-            var image = await EncodeGifService.Create((DateTime) targetTime, configuration);
+
+            var configuration = await _service.FindConfiguration(timer.CampaignId);
+            var image = await EncodeGifService.Create(timer.TargetDate, configuration);
             return File(image, "image/gif");
         }
         [Authorize]
@@ -52,11 +53,13 @@ namespace EmailTimer.Controllers
             return listOfGifs;
         }
         [Authorize]
-        [HttpPost("/api/g/Delete/{id}")]
-        public async Task<ActionResult> Delete(long id, CancellationToken cancellationToken)
+        [HttpDelete("/api/g/{campaignId}/Delete/{id}")]
+        public async Task<ActionResult> Delete(long id, long campaignId, CancellationToken cancellationToken)
         {
             var result = await _service.DeleteTimer(id, cancellationToken);
-            if(result) return Ok();
+            var listOfGifs = await _service.ListAllGifsForCampaignAsync(HttpContext.User.FindFirst(ClaimTypes.Email)?.Value, campaignId,
+                cancellationToken);
+            if(result) return Ok(listOfGifs);
             return BadRequest();
         }
     }

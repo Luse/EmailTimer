@@ -5,6 +5,7 @@ export const gifsReducer = (state = {
 }, action) => {
     switch (action.type) {
         case 'FETCH_LIST_SUCCESS':
+        case 'POST_DELETE_SUCCESS':
         case 'POST_TIMER_SUCCESS':
             return state = {
                 ...state,
@@ -30,10 +31,10 @@ export const postNewTimer = (campaignId, targetTime) => {
     }
 }
 
-export const deleteTimer = (id) => {
+export const deleteTimer = (id, campaignId) => {
     return function (dispatch) {
-        return axios(`/api/g/Delete/${id}`, {
-            method: "post",
+        return axios(`/api/g/${campaignId}/Delete/${id}`, {
+            method: "delete",
             withCredentials: true,
             headers: {
                 Authorization: "Bearer " +localStorage.getItem('token')
@@ -75,7 +76,7 @@ export const postTimerSuccess = (response) => ({
 });
 
 export const postDeleteSuccess = (response) => ({
-    type: "POST_LIST_SUCCESS",
+    type: "POST_DELETE_SUCCESS",
     payload: {
         response: response.data
     }

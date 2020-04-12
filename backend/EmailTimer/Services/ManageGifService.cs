@@ -34,16 +34,15 @@ namespace EmailTimer.Services
             return (builder.ToString());
         }
 
-        public async Task<DateTime?> FindTimer(String accessor, CancellationToken cancellationToken)
+        public async Task<Timer> FindTimer(String accessor, CancellationToken cancellationToken)
         {
-            var timer = _context.Timers.FirstOrDefault(k => k.WebAccessor == accessor);
-            return timer?.TargetDate;
+            return await _context.Timers.FirstOrDefaultAsync(k => k.WebAccessor == accessor, cancellationToken);
         }
 
         public async Task<Timer[]> CreateNewTimer(String targetTime, string customerEmail, long campaignId, CancellationToken cancellationToken)
         {
             var accessor = await GenerateIdentifier(6);
-            bool parseResult = DateTime.TryParse(targetTime, out DateTime result);
+            bool parseResult = DateTime.TryParse(targetTime, out _);
             if (!parseResult)
             {
                 return null;
@@ -74,8 +73,15 @@ namespace EmailTimer.Services
             var timer = await _context.Timers.Where(a => a.Id == id).FirstOrDefaultAsync(cancellationToken);
             if (timer is null) return false;
             _context.Timers.Remove(timer);
+            
             await _context.SaveChangesAsync(cancellationToken);
             return true;
+        }
+
+        public async Task<CampaignConfiguration> FindConfiguration(long id)
+        {
+            var campaign = await _context.Campaigns.Include(a => a.Configuration).FirstOrDefaultAsync(a => a.Id == id);
+            return campaign.Configuration;
         }
     }
 }

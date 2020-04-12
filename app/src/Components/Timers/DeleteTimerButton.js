@@ -11,7 +11,7 @@ export const DeleteTimerButton = props => {
     let { id } = useParams();
 
     const handleDelete = () => {
-        dispatch(deleteTimer(props.id))
+        dispatch(deleteTimer(props.id, id))
         .then(dispatch(fetchList(id)))
     }
 
