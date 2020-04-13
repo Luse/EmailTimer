@@ -1,31 +1,58 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Box, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import {HourglassIllustration} from './HourglassIllustration';
 
-export const PublicPage = () => (
-    <Grid direction="column" justify="space-between" alignItems="center" spacing={4} container >
-        <Grid component={Box} marginTop={10} item>
-            <Box textAlign="center">
-                <Typography variant="h1">
-                    Mailtimer
-        </Typography>
-                <Typography variant="h2">
-                    The easier alternative
-        </Typography>
+const useStyles = makeStyles((theme) => ({
+    header: {
+        paddingTop: theme.spacing(2)
+    },
+}));
 
+export const PublicPage = () => {
+    const classes = useStyles();
+
+
+    return <Grid direction="row" justify="center" alignItems="center" spacing={4} container >
+        <Grid item xs >
+            <Box className={classes.header}>
+                <Grid container justify="flex-end" alignItems="center">
+                    <Grid item xs={2}>
+                        <Typography color="secondary" variant="h4" align="center">
+                            Mailtimer
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={4}>
+                
+                    </Grid>
+                    <Grid item xs={5}>
+                        <Button>
+                            Pricing
+                        </Button>
+                        <Button>
+                            Features
+                        </Button>
+                        <Button>
+                            Blog
+                        </Button>
+                        <Button>
+                            Help/faq
+                        </Button>
+                        
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Box textAlign="right">
+                            <Button variant="outlined" color="primary">
+                                Login
+                            </Button>
+                        </Box>
+                
+                    </Grid>
+                </Grid>
             </Box>
         </Grid>
-        <Grid item paddingTop={2}>
-            <Button component={Link} to="/login" size="large" color="primary" variant="contained" fullWidth>
-                Now in early Alpha
-            </Button>
-        </Grid>
-        <Grid item >
-            <Typography variant="subtitle">
-                Made by <a href="https://github.com/GrayOverride">Me</a>
-            </Typography>
-        </Grid>
+        <HourglassIllustration />
     </Grid>
-)
+}

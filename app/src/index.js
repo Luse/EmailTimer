@@ -6,14 +6,30 @@ import {StateProvider} from "./State/StateProvider";
 import { ThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import deepPurple from '@material-ui/core/colors/deepPurple';
+import purple from '@material-ui/core/colors/purple';
 
 const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'Raleway',
+      'sans-serif',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
     palette: {
-      type:'dark',
-      primary: {
-          main: '#283593',
-        },
-        secondary: deepPurple,
+      primary: purple,
+        secondary: {
+          main: '#7860dc'
+        }
     },
   })
 
