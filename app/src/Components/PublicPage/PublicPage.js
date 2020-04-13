@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import { Button, Grid, Box, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import {HourglassIllustration} from './HourglassIllustration';
+import { HourglassIllustration } from './HourglassIllustration';
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -24,31 +24,48 @@ export const PublicPage = () => {
                             Mailtimer
                         </Typography>
                     </Grid>
-                    <Grid item xs={4}>
-                
+                    <Grid item xs={3}>
+
                     </Grid>
                     <Grid item xs={5}>
                         <Button>
-                            Pricing
+                            <Typography color="textPrimary">
+                                Pricing
+                        </Typography>
                         </Button>
                         <Button>
-                            Features
+                            <Typography color="textPrimary">
+                                Features
+                            </Typography>
+
                         </Button>
                         <Button>
-                            Blog
+                            <Typography color="textPrimary">
+                                Blog
+                        </Typography>
                         </Button>
                         <Button>
-                            Help/faq
+                            <Typography color="textPrimary">
+                                Help/faq
+                            </Typography>
                         </Button>
-                        
+
                     </Grid>
                     <Grid item xs={1}>
                         <Box textAlign="right">
-                            <Button variant="outlined" color="primary">
+                            <Button component={Link} to="/login" variant="text" color="secondary">
                                 Login
                             </Button>
                         </Box>
-                
+
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Box textAlign="right">
+                            <Button component={Link} to="/register" variant="contained" color="primary">
+                                Register
+                            </Button>
+                        </Box>
+
                     </Grid>
                 </Grid>
             </Box>

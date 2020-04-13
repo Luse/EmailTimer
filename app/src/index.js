@@ -5,7 +5,6 @@ import App from './App';
 import {StateProvider} from "./State/StateProvider";
 import { ThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import deepPurple from '@material-ui/core/colors/deepPurple';
 import purple from '@material-ui/core/colors/purple';
 
 const theme = createMuiTheme({

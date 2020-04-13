@@ -5,13 +5,15 @@ import {
     Route,
     Redirect,
 } from "react-router-dom";
-import { LoginRegisterContainer } from '../Components/LoginRegisterContainer/LoginRegisterContainer';
 import { Dashboard } from '../Components/Dashboard/Dashboard';
 import { PublicPage } from '../Components/PublicPage/PublicPage';
 
 import { Timers } from "../Components/Timers/Timers";
 import { Campaigns } from "../Components/Campaigns/Campaigns";
 import { DashboardLanding } from "../Components/DashboardLanding/DashboardLanding";
+import { Login } from "../Components/Login/Login";
+import { Register } from "../Components/Register/Register";
+
 export const Router = () => {
     return (
         <BrowserRouter>
@@ -20,9 +22,12 @@ export const Router = () => {
                     <PublicPage />
                 </Route>
                 <Route path="/login">
-                    <LoginRegisterContainer />
+                    <Login />
                 </Route>
-                <AuthenticatedRoute path="/dashboard">
+                <Route exact path="/Register">
+                    <Register />
+                </Route>
+                <AuthenticatedRoute exact path="/dashboard">
                     <Dashboard>
                         <Route exact path="/dashboard" component={DashboardLanding} />
                         <Route path="/dashboard/timers" component={Timers} />
@@ -34,13 +39,15 @@ export const Router = () => {
         </BrowserRouter>
     );
 }
+const getToken = () => localStorage.getItem('token')
 
 const AuthenticatedRoute = ({ children, component: Component, ...rest }) => {
+    const [token] = React.useState(getToken || false);
     return (
         <Route
             {...rest}
             render={( props ) =>
-                localStorage.getItem('token') ? (
+                token ? (
                     children
                 ) : (
                         <Redirect

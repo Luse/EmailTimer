@@ -33,8 +33,8 @@ export const LoginRegisterContainer = props => {
         <Box paddingTop={5}>
         <Box paddingBottom={1} >
             <ButtonGroup size="large" color="primary" aria-label="large outlined primary button group">
-                <Button onClick={() => setToggleLoginOrRegister(!toggleLoginOrRegister)} color="primary" variant={toggleLoginOrRegister ? "contained" : 'outlined'}>Login</Button>
-                <Button onClick={() => setToggleLoginOrRegister(!toggleLoginOrRegister)} color="secondary" variant={!toggleLoginOrRegister ? "contained" : 'outlined'} >Register</Button>
+                <Button onClick={() => setToggleLoginOrRegister(!toggleLoginOrRegister)} color="secondary" variant={toggleLoginOrRegister ? "contained" : 'outlined'}>Login</Button>
+                <Button onClick={() => setToggleLoginOrRegister(!toggleLoginOrRegister)} color="primary" variant={!toggleLoginOrRegister ? "contained" : 'outlined'} >Register</Button>
             </ButtonGroup>
         </Box>
         <Component />
