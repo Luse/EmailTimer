@@ -52,7 +52,8 @@ namespace EmailTimer.Services
         public async Task<string> Login(string email, string password, CancellationToken cancellationToken)
         {
             var user = await _context.Customers.FirstOrDefaultAsync(a => a.Email == email, cancellationToken: cancellationToken);
-            if (user.PasswordHash != CreateHash(password))
+            var regeneratedHash = CreateHash(password);
+            if (user.PasswordHash != regeneratedHash)
             {
                 return null;
             }

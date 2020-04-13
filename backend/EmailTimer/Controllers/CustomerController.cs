@@ -26,7 +26,7 @@ namespace EmailTimer.Controllers
             var currentUser = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
             return Ok(currentUser);
         }
-
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<ActionResult> Register([FromBody] JObject body, CancellationToken cancellationToken)
         {
@@ -36,7 +36,7 @@ namespace EmailTimer.Controllers
             if (result is null) return Forbid();
             return Ok(new IsLoggedInResult{Email = a.Email, Token = result});
         }
-        
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<ActionResult> Login([FromBody] JObject body, CancellationToken cancellationToken)
         {
