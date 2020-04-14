@@ -24,14 +24,14 @@ export const Router = () => {
                 <Route path="/login">
                     <Login />
                 </Route>
-                <Route exact path="/Register">
+                <Route path="/Register">
                     <Register />
                 </Route>
-                <AuthenticatedRoute exact path="/dashboard">
+                <AuthenticatedRoute>
                     <Dashboard>
                         <Route exact path="/dashboard" component={DashboardLanding} />
                         <Route path="/dashboard/timers" component={Timers} />
-                        <Route exact path="/dashboard/Campaigns" component={Campaigns} />
+                        <Route exact path="/dashboard/campaigns" component={Campaigns} />
                         <Route path="/dashboard/Campaigns/:id" component={Timers} />
                     </Dashboard>
                 </AuthenticatedRoute>
@@ -39,14 +39,13 @@ export const Router = () => {
         </BrowserRouter>
     );
 }
-const getToken = () => localStorage.getItem('token')
 
 const AuthenticatedRoute = ({ children, component: Component, ...rest }) => {
-    const [token] = React.useState(getToken || false);
+    const [token] = React.useState(localStorage.getItem('token') || false);
     return (
         <Route
             {...rest}
-            render={( props ) =>
+            render={( location ) =>
                 token ? (
                     children
                 ) : (
@@ -54,6 +53,7 @@ const AuthenticatedRoute = ({ children, component: Component, ...rest }) => {
                         {...rest}
                             to={{
                                 pathname: "/login",
+                                state: { from: location }
                             }}
                         />
                     )

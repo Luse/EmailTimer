@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from '../Header/Header';
 import { Content } from '../Content/Content';
-import { Logout } from '../LoginRegisterContainer/Login/Logout';
+import { Logout } from '../Login/Logout';
 import { useDispatch } from "react-redux";
 import { isLoggedIn } from '../../State/States/User';
 import {

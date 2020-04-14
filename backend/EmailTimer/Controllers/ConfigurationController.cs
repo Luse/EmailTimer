@@ -30,7 +30,7 @@ namespace EmailTimer.Controllers
             if (!verifyPermissions) return Unauthorized();
             var configuration = body.ToObject<CampaignConfiguration>();
             var updated = await _service.UpdateConfiguration(configuration, cancellationToken);
-            return Ok(updated);
+            return Ok(updated.Entity);
         } 
     }
 }

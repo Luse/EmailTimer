@@ -7,10 +7,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-
-
 
 export const RegisterForm = props => {
     const [Email, setEmail] = React.useState("");
@@ -25,7 +21,7 @@ export const RegisterForm = props => {
     return <Grid item xs>
         <Box padding={2} component={Card}>
             <Grid container >
-                <Grid item xs>
+                <Grid item xs={5}>
                     <form onSubmit={handleSubmit}>
                         <TextField type="email" fullWidth onChange={(event) => setEmail(event.target.value)} id="name" placeholder="Email" name="email" required
                         />
@@ -34,13 +30,14 @@ export const RegisterForm = props => {
                         <TextField type="password" fullWidth onChange={(event) => setConfirmedPassword(event.target.value)} id="confirmPassword" placeholder="Confirm password" name="confirm" required
                         />
                         <Button disabled={confirmedPassword !== password} type="submit" >
-                            Submit
+                            Register
                     </Button>
                     </form>
                 </Grid>
+                <Grid xs={2}></Grid>
                 <Grid item xs={4} >
                     <Box padding={2}>
-                    <Typography>
+                    <Typography align="center">
                         Should you choose to remove you account all off your data will be terminated
                     </Typography>
                     </Box>

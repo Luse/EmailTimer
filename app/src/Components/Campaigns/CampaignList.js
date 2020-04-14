@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampaigns } from '../../State/ActionCreator';
-import { Typography } from '@material-ui/core';
+import { Typography, Box } from '@material-ui/core';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -18,9 +19,11 @@ export const CampaignList = () => {
     }, [dispatch])
 
     if (campaigns.list.length === 0) {
-        return <Typography>
-            No Campaigns yet :(
+        return <Box padding={4}>
+            <Typography align="center">
+            Click the button on the right to add your first campaign
            </Typography>
+           </Box>
     }
     return <Grid item>
             <List >

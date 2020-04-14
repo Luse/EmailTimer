@@ -10,7 +10,7 @@ namespace EmailTimer.Models
             this.FontColor = "484C57";
             this.BackgroundColor = "F8F5EF";
             this.TimeoutText = "Target Reached";
-            this.Transparent = true;
+            this.Transparent = false;
         }
         public long Id { get; set; }
         public int TimerWidth { get; set; }

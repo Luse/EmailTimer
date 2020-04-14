@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { logout } from '../../../State/ActionCreator';
+import { logout } from '../../State/ActionCreator';
 import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 

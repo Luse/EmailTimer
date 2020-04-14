@@ -36,7 +36,7 @@ export const NewCampaign = () => {
             <DialogTitle id="form-dialog-title">New Campaign</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Lets use a descriptive name for the email campaign
+                    What would you like to call this campaign? this is only for your own use and wont show for customers
           </DialogContentText>
                 <TextField
                     autoFocus

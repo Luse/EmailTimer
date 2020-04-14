@@ -24,9 +24,10 @@ namespace EmailTimer.Services
         }
 
 
-        public async Task GetCampaign(long campaignId, CancellationToken cancellationToken)
+        public async Task<Campaign> GetCampaign(long campaignId, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var campaign = await _context.Campaigns.Include(a => a.Configuration).FirstOrDefaultAsync(a => a.Id == campaignId, cancellationToken);
+            return campaign;
         }
 
         public async Task DeleteCampaign(long campaignId, CancellationToken cancellationToken)

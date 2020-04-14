@@ -29,7 +29,7 @@ export const Login = props => {
         </Grid>
   
         <Grid item xs={12}>
-                <img className={classes.img} src={`${process.env.PUBLIC_URL}SecureWoman.png`} />
+                <img alt="secure login" className={classes.img} src={`${process.env.PUBLIC_URL}SecureWoman.png`} />
             </Grid>
         </Grid>
         </Box>

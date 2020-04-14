@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Button, Grid, Box, Paper } from '@material-ui/core';
+import { Button, Grid, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { HourglassIllustration } from './HourglassIllustration';
@@ -13,8 +13,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const PublicPage = () => {
     const classes = useStyles();
-
-
     return <Grid direction="row" justify="center" alignItems="center" spacing={4} container >
         <Grid item xs >
             <Box className={classes.header}>
@@ -65,7 +63,6 @@ export const PublicPage = () => {
                                 Register
                             </Button>
                         </Box>
-
                     </Grid>
                 </Grid>
             </Box>

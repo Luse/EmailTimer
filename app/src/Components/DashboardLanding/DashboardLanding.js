@@ -25,7 +25,7 @@ export const DashboardLanding = () => {
                </Typography>
             </Grid>
             <Grid item xs>
-                <img className={classes.img} src={`${process.env.PUBLIC_URL}VRPerson.png`} />
+                <img alt="welcome to the future" className={classes.img} src={`${process.env.PUBLIC_URL}VRPerson.png`} />
             </Grid>
 
         </Grid>

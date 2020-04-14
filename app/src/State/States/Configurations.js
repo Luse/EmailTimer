@@ -1,10 +1,15 @@
-export const configurationReducer = (state = {
+import axios from 'axios';
+
+
+export const configurationsReducer = (state = {
     configuration: {},
+    lastUpdated: Date.now()
 }, action) => {
     switch (action.type) {
         case 'FETCH_CONFIGURATION_SUCCESS':
             return state = {
                 ...state,
+                lastUpdated: Date.now(),
                 configuration: action.payload.response,
             };
         default:
@@ -13,14 +18,15 @@ export const configurationReducer = (state = {
 };
 
 
-export const postNewConfiguration = (campaignId, configuration) => {
+export const postNewConfiguration = (configurationId, configuration) => {
     return function (dispatch) {
-        return axios(`/api/cg/New/${campaignId}`, {
+        return axios(`/api/cg/configurations/${configurationId}`, {
             method: "post",
             withCredentials: true,
             headers: {
                 Authorization: "Bearer " +localStorage.getItem('token')
             },
+            data: configuration
         }).then(
             (result) => dispatch(postConfigurationSuccess(result))
         )

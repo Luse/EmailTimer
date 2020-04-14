@@ -1,6 +1,5 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button, Box } from '@material-ui/core';
@@ -32,7 +31,7 @@ export const HourglassIllustration = (props) => {
             
         </Grid>
         <Grid xs={6}>
-            <img className={classes.img} src={`${process.env.PUBLIC_URL}HappyPerson.png`} />
+            <img alt="Less stress" className={classes.img} src={`${process.env.PUBLIC_URL}HappyPerson.png`} />
         </Grid>
     </Grid>
 }

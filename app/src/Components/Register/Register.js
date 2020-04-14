@@ -12,9 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export const Register = props => {
     const classes = useStyles();
-
     return <Box paddingTop={4}>
-
         <Grid container direction="column" alignItems="center">
             <Grid item xs={12}>
                 <Typography variant="h6" color="primary" align="center" gutterBottom>
@@ -30,7 +28,7 @@ export const Register = props => {
                 </Box>
             </Grid>
             <Grid item xs={12}>
-                <img className={classes.img} src={`${process.env.PUBLIC_URL}SecureWoman.png`} />
+                <img alt="secure login" className={classes.img} src={`${process.env.PUBLIC_URL}SecureWoman.png`} />
             </Grid>
         </Grid>
 

@@ -25,12 +25,14 @@ namespace EmailTimer.Services
 
         public async Task<EntityEntry<CampaignConfiguration>> UpdateConfiguration(CampaignConfiguration configuration, CancellationToken cancellationToken)
         { 
-           return _context.CampaignConfigurations.Update(configuration);
+            var updatedConfiguration = _context.CampaignConfigurations.Update(configuration);
+            await _context.SaveChangesAsync(cancellationToken);
+            return updatedConfiguration;
         }
 
         public async Task<bool> VerifyIdToCustomer(long configurationId, string userEmail)
         {
-            var user = _context.Customers.FirstOrDefaultAsync(a => a.Email == userEmail);
+            var user = await _context.Customers.FirstOrDefaultAsync(a => a.Email == userEmail);
             var l = configurationId;
             var campaign = await _context.Campaigns.FirstOrDefaultAsync(a => a.Configuration.Id == l);
             return campaign.CustomerId == user.Id;

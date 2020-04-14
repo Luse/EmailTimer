@@ -33,7 +33,7 @@ namespace EmailTimer.Services
                 using Image<Rgba32> image = new Image<Rgba32>(width, height);
                 image.Mutate(x => x
                     .BackgroundColor(backgroundColor)
-                    .DrawText(textGraphicsOptions, timeoutText, fontFamily.CreateFont(fontSize), fontColor, new SixLabors.Primitives.PointF(1, 1)));
+                    .DrawText(textGraphicsOptions, timeoutText, fontFamily.CreateFont(fontSize), fontColor, new SixLabors.Primitives.PointF(5, 1)));
                 gif.Frames.AddFrame(image.Frames[0]);
                 gif.Metadata.GetFormatMetadata(GifFormat.Instance).ColorTableMode = GifColorTableMode.Global;
                 gif.Frames.RemoveFrame(0);

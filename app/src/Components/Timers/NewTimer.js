@@ -17,7 +17,7 @@ export const NewTimer = props => {
             <form onSubmit={handleSubmit}>
                 <TextField type="date" onChange={(event) => setTargetDate(event.target.value)} />
                 <Button disabled={!targetDate} color="primary" type="submit" >
-                    Save new timer
+                    New timer
                 </Button>
             </form>
         </div>

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const campaignsReducer = (state = {
     list: [],
+    lastUpdated: Date.now(),
     fetching: false
 }, action) => {
     switch (action.type) {
@@ -12,6 +13,7 @@ export const campaignsReducer = (state = {
         case 'FETCH_CAMPAIGNS_SUCCESS':
             return state = {
                 ...state,
+                lastUpdated: Date.now(),
                 list: action.payload.response,
                 fetching: false
             };

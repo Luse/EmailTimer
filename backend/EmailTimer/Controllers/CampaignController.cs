@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
@@ -54,6 +55,21 @@ namespace EmailTimer.Controllers
         {
             await _service.GetCampaign(campaignId, cancellationToken);
             return Ok();
+        } 
+        [AllowAnonymous]
+        [HttpGet("{campaignId}/Preview/{completeBool}")]
+        public async Task<ActionResult> Preview(long campaignId, bool completeBool, CancellationToken cancellationToken)
+        {
+            var campaign = await _service.GetCampaign(campaignId, cancellationToken);
+            var today = DateTime.Now;
+            DateTime targetDate = today;
+            if (!completeBool)
+            {
+                targetDate = today.AddDays(99);
+            }
+            
+            var previewImage = await EncodeGifService.Create(targetDate, campaign.Configuration);
+            return File(previewImage, "image/gif");
         } 
     }
 }

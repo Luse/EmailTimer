@@ -1,0 +1,23 @@
+import React from 'react';
+import {
+    useParams
+  } from "react-router-dom";
+import { Box, Typography, Paper } from '@material-ui/core';
+
+
+export const Preview = ({hash}) => {
+    let { id } = useParams();
+    React.useEffect(() => {
+      }, [])
+    return <Box padding={2} component={Paper}>
+    <Typography>
+      Preview: 
+    </Typography>
+    <Box padding={2}>
+      <img loading="eager" alt="preview" src={`https://localhost:5001/api/ca/campaigns/${id}/Preview/false?${hash}`} />
+    </Box>
+    <Box padding={2}>
+      <img loading="eager" alt="preview"  src={`https://localhost:5001/api/ca/campaigns/${id}/Preview/true?${hash}`} />
+    </Box>
+  </Box>
+} 
