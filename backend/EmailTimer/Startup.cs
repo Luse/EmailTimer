@@ -71,7 +71,7 @@ namespace EmailTimer
             {
                 builder.AllowAnyHeader();
                 builder.AllowCredentials();
-                builder.WithOrigins("http://localhost:3000","https://mailtimer.com");
+                builder.WithOrigins("http://localhost:3000","https://mailtimer.com", "https://cdn.mailtimer.com");
             });
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
