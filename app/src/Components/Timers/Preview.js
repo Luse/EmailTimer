@@ -14,10 +14,10 @@ export const Preview = ({hash}) => {
       Preview: 
     </Typography>
     <Box padding={2}>
-      <img loading="eager" alt="preview" src={`https://localhost:5001/api/ca/campaigns/${id}/Preview/false?${hash}`} />
+      <img loading="eager" alt="preview" src={`https://mailtimer.com/api/ca/campaigns/${id}/Preview/false?${hash}`} />
     </Box>
     <Box padding={2}>
-      <img loading="eager" alt="preview"  src={`https://localhost:5001/api/ca/campaigns/${id}/Preview/true?${hash}`} />
+      <img loading="eager" alt="preview"  src={`https://mailtimer.com/api/ca/campaigns/${id}/Preview/true?${hash}`} />
     </Box>
   </Box>
 } 
