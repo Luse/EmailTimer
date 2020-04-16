@@ -31,7 +31,8 @@ namespace EmailTimer.Controllers
         public async Task<ActionResult> Register([FromBody] JObject body, CancellationToken cancellationToken)
         {
             var a = body.ToObject<LoginModel>();
-            await _service.RegisterNewUser(a.Email, a.Password, cancellationToken);
+            var newUser = await _service.RegisterNewUser(a.Email, a.Password, cancellationToken);
+            if (newUser == null) return ValidationProblem("Username is already registered");
             var result = await _service.Login(a.Email, a.Password, cancellationToken);
             if (result is null) return Forbid();
             return Ok(new IsLoggedInResult{Email = a.Email, Token = result});
@@ -42,7 +43,7 @@ namespace EmailTimer.Controllers
         {
             var a = body.ToObject<LoginModel>();
             var result = await _service.Login(a.Email, a.Password, cancellationToken);
-            if (result is null) return Forbid();
+            if (result is null) return ValidationProblem("Wrong username or password");
             return Ok(new IsLoggedInResult{Email = a.Email, Token = result});
         }
         

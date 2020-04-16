@@ -146,7 +146,7 @@ export const Timers = props => {
           <List >
             {gifs.list.map((gif, index) =>
               <ListItem key={index}>
-                <ListItemText secondary={new Date(gif.targetDate).toLocaleDateString()} primary={`https://cdn.mailtimer.com/${gif.webAccessor}`} />
+                <ListItemText secondary={new Date(gif.targetDate).toLocaleDateString()} primary={`<img alt="coundown timer provided by mailtimer.com" src="https://cdn.mailtimer.com/${gif.webAccessor}" />`} />
                 <ListItemSecondaryAction>
                   <DeleteTimerButton id={gif.id} />
                 </ListItemSecondaryAction>

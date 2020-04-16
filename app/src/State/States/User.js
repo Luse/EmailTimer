@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { push } from 'connected-react-router'
 
 export const userReducer = (state = {
     authenticated: false,
@@ -11,25 +10,26 @@ export const userReducer = (state = {
         case 'LOGIN_PENDING':
             return state = {
                 ...state,
+                error: "",
                 authenticating: true
             }
-        case 'LOGIN_VERIFY': 
-        return state ={
-            ...state,
-            username: action.payload.response,
-            authenticating: false
-        }
+        case 'LOGIN_VERIFY':
+            return state = {
+                ...state,
+                username: action.payload.response,
+                authenticating: false
+            }
         case 'LOGIN_SUCCESS':
             return state = {
                 ...state,
-                username: action.payload.response.email,
-                token: action.payload.response.token,
                 authenticated: true,
-                authenticating: false
+                authenticating: false,
+                error: ""
             };
-        case 'LOGIN_FAILURE': 
+        case 'LOGIN_FAILURE':
             return state = {
                 ...state,
+                error: action.payload.error.response.data.detail,
                 authenticating: false,
                 authenticated: false
             }
@@ -38,6 +38,18 @@ export const userReducer = (state = {
                 ...state,
                 username: "",
                 authenticated: false,
+                authenticating: false
+            };
+        case 'REGISTER_SUCCESS':
+            return state = {
+                ...state,
+                authenticated: true,
+                authenticating: false,
+            };
+        case 'REGISTER_FAILURE':
+            return state = {
+                ...state,
+                error: action.payload.error.response.data.detail
             };
         default:
             return state
@@ -58,14 +70,9 @@ export const register = (username, password) => {
                 Password: password
             }
         })
-        .then((res) => saveTokenToStorage(res.data.token))
-        .then(
-            (result) => dispatch(loginSuccess(result, username))
-        )
-        .then(
-            dispatch(push('/dashboard'))
-        )
-            .catch(err => err)
+            .then((res) => saveTokenToStorage(res.data.token))
+            .then(() => dispatch(registerSuccess()))
+            .catch((err) => dispatch(registerFailure(err)))
     }
 }
 
@@ -75,15 +82,14 @@ export const isLoggedIn = () => {
         return axios('/api/c/Customer/IsLoggedIn', {
             method: "get",
             headers: {
-                Authorization: "Bearer " +localStorage.getItem('token')
+                Authorization: "Bearer " + localStorage.getItem('token')
             },
             withCredentials: true
         })
-        .then(
-            (result) => dispatch(loginVerify(result))
-        )
-        
-        .catch(err => dispatch(loginFailure(err)))
+            .then(
+                (result) => dispatch(loginVerify(result))
+            )
+            .catch(err => dispatch(loginFailure(err)))
     }
 }
 
@@ -93,18 +99,17 @@ export const login = (username, password) => {
         return axios('/api/c/Customer/Login', {
             method: "post",
             headers: {
-                Authorization: "Bearer " +localStorage.getItem('token')
+                Authorization: "Bearer " + localStorage.getItem('token')
             },
-            // withCredentials: true,
             data: {
                 Email: username,
                 Password: password
             }
         })
-        .then((res) => saveTokenToStorage(res.data.token))
-        .then(
-            (result) => dispatch(loginSuccess(result, username))
-        )
+            .then((res) => saveTokenToStorage(res.data.token))
+            .then(
+                () => dispatch(loginSuccess(username))
+            )
             .catch(err => dispatch(loginFailure(err)))
     }
 };
@@ -119,12 +124,9 @@ export const loginPending = () => ({
     type: "LOGIN_PENDING",
 });
 
-export const loginSuccess = (response, username) => ({
+export const loginSuccess = (username) => ({
     type: "LOGIN_SUCCESS",
-    username,
-    payload: {
-        response: response.data
-    }
+    username
 });
 
 export const loginVerify = (response) => ({
@@ -140,6 +142,16 @@ export const logoutSuccess = () => ({
 
 export const loginFailure = (error) => ({
     type: "LOGIN_FAILURE",
+    payload: {
+        error: error
+    }
+});
+export const registerSuccess = (error) => ({
+    type: "REGISTER_SUCCESS",
+});
+
+export const registerFailure = (error) => ({
+    type: "REGISTER_FAILURE",
     payload: {
         error: error
     }

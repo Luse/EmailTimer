@@ -30,6 +30,8 @@ namespace EmailTimer.Services
         public async Task<string> RegisterNewUser(string email, string password, CancellationToken cancellationToken)
         {
             var hash = CreateHash(password);
+            Customer emailAlreadyExists = await _context.Customers.FirstOrDefaultAsync(a => a.Email == email, cancellationToken);
+            if (emailAlreadyExists != null) return null;
             var user = new Customer {Email = email, PasswordHash = hash, CreatedAt = DateTime.Now};
             await _context.Customers.AddAsync(user, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);

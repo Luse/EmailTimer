@@ -25,8 +25,8 @@ export const PublicPage = () => {
                     <Grid item xs={3}>
 
                     </Grid>
-                    <Grid item xs={5}>
-                        <Button>
+                    <Grid item xs={3}>
+                        {/* <Button>
                             <Typography color="textPrimary">
                                 Pricing
                         </Typography>
@@ -46,19 +46,20 @@ export const PublicPage = () => {
                             <Typography color="textPrimary">
                                 Help/faq
                             </Typography>
-                        </Button>
+                        </Button> */}
 
                     </Grid>
-                    <Grid item xs={1}>
+                    {/* <Grid item xs={1}>
                         <Box textAlign="right">
-                            <Button component={Link} to="/login" variant="text" color="secondary">
-                                Login
-                            </Button>
+                  
                         </Box>
 
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Box textAlign="right">
+                    </Grid> */}
+                    <Grid item xs={3}>
+                        <Box textAlign="center">
+                        <Button component={Link} to="/login" variant="text" color="secondary">
+                                Login
+                            </Button>
                             <Button component={Link} to="/register" variant="contained" color="primary">
                                 Register
                             </Button>
