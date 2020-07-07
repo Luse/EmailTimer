@@ -31,6 +31,7 @@ namespace EmailTimer
             services.AddScoped<CustomerService>();
             services.AddScoped<CampaignService>();
             services.AddScoped<ConfigurationService>();
+            services.AddScoped<InterestListService>();
             
             services.AddDbContext<EmailTimerContext>(opt =>
                 opt.UseNpgsql( Configuration.GetConnectionString("DefaultConnection") ));

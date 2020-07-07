@@ -1,9 +1,11 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Button, Grid, Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Grid, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { HourglassIllustration } from './HourglassIllustration';
+import { EmailInput } from './EmailInput';
+import { ExampleTimer } from './ExampleTimer';
+import { Security } from './Security';
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const PublicPage = () => {
     const classes = useStyles();
-    return <Grid direction="row" justify="center" alignItems="center" spacing={4} container >
+    return <Grid direction="row" justify="center" alignItems="center" spacing={20} container >
         <Grid item xs >
             <Box className={classes.header}>
                 <Grid container justify="flex-end" alignItems="center">
@@ -22,52 +24,18 @@ export const PublicPage = () => {
                             Mailtimer
                         </Typography>
                     </Grid>
-                    <Grid item xs={3}>
-
-                    </Grid>
-                    <Grid item xs={3}>
-                        {/* <Button>
-                            <Typography color="textPrimary">
-                                Pricing
-                        </Typography>
-                        </Button>
-                        <Button>
-                            <Typography color="textPrimary">
-                                Features
-                            </Typography>
-
-                        </Button>
-                        <Button>
-                            <Typography color="textPrimary">
-                                Blog
-                        </Typography>
-                        </Button>
-                        <Button>
-                            <Typography color="textPrimary">
-                                Help/faq
-                            </Typography>
-                        </Button> */}
-
-                    </Grid>
-                    {/* <Grid item xs={1}>
-                        <Box textAlign="right">
-                  
-                        </Box>
-
-                    </Grid> */}
-                    <Grid item xs={3}>
-                        <Box textAlign="center">
-                        <Button component={Link} to="/login" variant="text" color="secondary">
-                                Login
-                            </Button>
-                            <Button component={Link} to="/register" variant="contained" color="primary">
-                                Register
-                            </Button>
-                        </Box>
-                    </Grid>
                 </Grid>
             </Box>
         </Grid>
+
         <HourglassIllustration />
+        <ExampleTimer />
+        <Box paddingBottom={70}></Box>
+
+        <Security />
+        <Box paddingBottom={70}></Box>
+        <Box paddingBottom={50} paddingTop={20}>
+        <EmailInput />
+        </Box>
     </Grid>
 }
