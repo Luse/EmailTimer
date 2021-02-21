@@ -29,7 +29,7 @@ export const userReducer = (state = {
         case 'LOGIN_FAILURE':
             return state = {
                 ...state,
-                error: action.payload.error.response.data.detail,
+                error: action.payload.error?.response?.data?.detail,
                 authenticating: false,
                 authenticated: false
             }
@@ -49,7 +49,7 @@ export const userReducer = (state = {
         case 'REGISTER_FAILURE':
             return state = {
                 ...state,
-                error: action.payload.error.response.data.detail
+                error: action.payload.error?.response?.data?.detail
             };
         default:
             return state

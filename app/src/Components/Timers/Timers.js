@@ -60,7 +60,7 @@ export const Timers = props => {
               <Box padding={1}>
                 <TextField
                   id="timeoutText"
-                  label="Timeout"
+                  label="Timeout text"
                   variant="outlined"
                   color="secondary"
                   value={configuration.timeoutText}

@@ -3,15 +3,17 @@ import {
     BrowserRouter,
     Switch,
     Route,
+    Redirect,
 } from "react-router-dom";
 import { PublicPage } from '../Components/PublicPage/PublicPage';
-/* 
+
 import { Dashboard } from '../Components/Dashboard/Dashboard';
 import { Timers } from "../Components/Timers/Timers";
 import { Campaigns } from "../Components/Campaigns/Campaigns";
 import { DashboardLanding } from "../Components/DashboardLanding/DashboardLanding";
 import { Login } from "../Components/Login/Login";
-import { Register } from "../Components/Register/Register"; */
+import { Register } from "../Components/Register/Register"; 
+
 
 export const Router = () => {
     return (
@@ -20,7 +22,7 @@ export const Router = () => {
                 <Route exact path="/">
                     <PublicPage />
                 </Route>
- {/*                <Route path="/login">
+                <Route path="/login">
                     <Login />
                 </Route>
                 <Route path="/Register">
@@ -33,13 +35,13 @@ export const Router = () => {
                         <Route exact path="/dashboard/campaigns" component={Campaigns} />
                         <Route path="/dashboard/Campaigns/:id" component={Timers} />
                     </Dashboard>
-                </AuthenticatedRoute> */}
+                </AuthenticatedRoute> 
             </Switch>
         </BrowserRouter>
     );
 }
 
-/* const AuthenticatedRoute = ({ children, component: Component, ...rest }) => {
+ const AuthenticatedRoute = ({ children, component: Component, ...rest }) => {
     const [token] = React.useState(localStorage.getItem('token') || false);
     return (
         <Route
@@ -61,4 +63,3 @@ export const Router = () => {
     );
 }
 
- */

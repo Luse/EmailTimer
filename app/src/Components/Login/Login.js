@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: '400px'
     }
 }));
-export const Login = props => {
+export const Login = () => {
     const classes = useStyles();
 
     return <Box paddingTop={4}>
@@ -21,10 +21,7 @@ export const Login = props => {
         <LoginForm />
         <Grid item xs={12}>
         <Button component={Link} to="/register" variant="text" color="secondary">
-            Register
-        </Button>
-        <Button>
-            Cant sign in?
+             or register
         </Button>
         </Grid>
   

@@ -26,7 +26,7 @@ export const SidebarNavigation = props => (
           </ListItemIcon>
           <ListItemText primary="Campaigns" />
       </ListItem>
-      <ListItem  button>
+      <ListItem disabled button>
           <ListItemIcon>
               <SettingsIcon />
           </ListItemIcon>

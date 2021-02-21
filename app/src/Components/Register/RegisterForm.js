@@ -33,7 +33,7 @@ export const RegisterForm = props => {
         event.preventDefault();
     }
     return <Grid item xs>
-        <Box padding={2} component={Card}>
+        <Box padding={4} component={Card}>
             <Grid container >
                 <Grid item md={5} xs={12}>
                     <form onSubmit={handleSubmit}>
