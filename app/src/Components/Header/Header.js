@@ -1,18 +1,30 @@
-import React from 'react';
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import PropTypes from "prop-types";
+import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: theme.spacing(2)
+    paddingTop: theme.spacing(2),
   },
-
 }));
 
-export const Header = props => {
+export const Header = (props) => {
   const classes = useStyles();
 
-  return <Grid direction="row" justify="flex-end" className={classes.root} alignItems="center" container item>
-    {props.children}
-  </Grid>
-}
+  return (
+    <Grid
+      direction="row"
+      justify="flex-end"
+      className={classes.root}
+      alignItems="center"
+      container
+      item
+    >
+      {props.children}
+    </Grid>
+  );
+};
+Header.propTypes = {
+  children: PropTypes.node,
+};

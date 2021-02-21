@@ -1,15 +1,12 @@
-import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCampaigns } from '../../State/ActionCreator';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { fetchCampaigns } from "../../State/ActionCreator";
 
 export const CampaignDetails = () => {
-    const { campaigns } = useSelector(state => ({
-        campaigns: state.campaignsReducer,
-    }));
-      const dispatch = useDispatch();
-      React.useEffect(() => {
-          dispatch(fetchCampaigns())
-      }, [dispatch])
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(fetchCampaigns());
+  }, [dispatch]);
 
-    return <div>Details</div>
-}
+  return <div>Details</div>;
+};

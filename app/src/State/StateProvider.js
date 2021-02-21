@@ -1,27 +1,24 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import { createRootReducer } from "./Reducer";
 import thunk from "redux-thunk";
-import { createBrowserHistory } from 'history'
-import { routerMiddleware,ConnectedRouter } from 'connected-react-router'
+import { createBrowserHistory } from "history";
+import { routerMiddleware, ConnectedRouter } from "connected-react-router";
 
-export const history = createBrowserHistory()
+export const history = createBrowserHistory();
 
 const store = createStore(
-    createRootReducer(history),
-    {},
-    compose(
-        applyMiddleware(
-            routerMiddleware(history),
-            thunk
-        )
-    )
+  createRootReducer(history),
+  {},
+  compose(applyMiddleware(routerMiddleware(history), thunk))
 );
 export const StateProvider = ({ children }) => (
-    <Provider store={store}>
-         <ConnectedRouter history={history}> 
-        {children}
-        </ConnectedRouter>
-    </Provider>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>{children}</ConnectedRouter>
+  </Provider>
 );
+StateProvider.propTypes = {
+  children: PropTypes.node,
+};
