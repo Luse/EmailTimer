@@ -26,7 +26,7 @@ export const ExampleTimer = (props) => {
             <Box padding={2} textAlign="center">
               <img
                 alt="coundown timer provided by mailtimer.com"
-                src="https://cdn.mailtimer.com/cdfkX8"
+                src="https://cdn.mailtimer.com/cRVAri"
               />
             </Box>
             <Box paddingBottom={1} textAlign="center">

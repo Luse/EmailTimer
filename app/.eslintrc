@@ -1,0 +1,19 @@
+{
+    "extends": ["react-app"],
+    "plugins": ["prettier", "jest", "eslint-plugin-react"],
+    "rules": {
+      "prettier/prettier": "error",
+      "react/prop-types": "error",
+      "no-console": "error",
+      "no-var": "error",
+      "camelcase": ["error", { "properties": "never" }],
+      "jest/no-focused-tests": "error",
+      "jest/consistent-test-it": ["error", { "fn": "it" }],
+      "jest/no-test-prefixes": "error",
+      "jest/no-jest-import": "error",
+      "jest/valid-expect-in-promise": "error",
+      "react/jsx-fragments": ["error", "element"],
+      "import/no-anonymous-default-export":0
+      }
+  }
+  
